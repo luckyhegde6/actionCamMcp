@@ -17,6 +17,8 @@ Welcome to the IlluMen_Dev Video Production Lab. This guide takes you from prepa
 | Computer | Windows 11, 16 GB RAM, GTX 1650 4 GB |
 | Lighting environment | India, 50 Hz mains |
 
+![Everyday 1080p camera profile](../assets/camera-configuration-overview.svg)
+
 ## Learning path
 
 1. [Memory card and recording workflow](01-memory-card-and-recording.md)
@@ -24,6 +26,23 @@ Welcome to the IlluMen_Dev Video Production Lab. This guide takes you from prepa
 3. [Handheld shooting and first exercise](03-handheld-shooting-exercise.md)
 4. [Importing and editing in DaVinci Resolve](04-davinci-resolve-first-project.md)
 5. [Troubleshooting and next steps](05-troubleshooting-and-next-steps.md)
+
+## Phase-wise learning roadmap
+
+| Phase | Focus | What you will be able to do |
+|---|---|---|
+| 1.1 | Camera setup and safe recording | Configure the camera and validate media |
+| 1.2 | Exposure and white balance | Understand shutter, ISO, EV and WB |
+| 1.3 | Frame rates and movement | Choose frame rates and capture slow motion |
+| 1.4 | Colour profiles | Compare Normal, D-Log M and HLG safely |
+| 1.5 | Camera-to-computer workflow | Inspect footage and prepare Resolve media |
+| 2 | Videography and storytelling | Compose intentional A-roll and B-roll |
+| 3 | Resolve fundamentals | Import, organize, trim and export |
+| 4 | Editing and audio | Build a clean story and improve sound |
+| 5 | Colour science | Correct exposure, WB and Rec.709 |
+| 6 | LUT development | Build and validate technical and creative LUTs |
+| 7 | AI media analysis | Search, classify and review footage |
+| 8 | YouTube publishing | Prepare thumbnails, metadata and deliverables |
 
 ## The first-video workflow
 
