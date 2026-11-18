@@ -2,6 +2,8 @@
 
 This is a deliberately simple starting profile for mixed indoor/outdoor handheld filming. It prioritizes predictable results and an easy editing workflow.
 
+![Everyday camera configuration overview](../assets/camera-configuration-overview.svg)
+
 ## Starter profile
 
 | Setting | Starting value | Why |
@@ -44,7 +46,15 @@ Exposure is how bright or dark the recorded image appears.
 
 Keep Auto exposure, EV 0, and Auto WB for your first practice session. Change one variable at a time when you begin experimenting.
 
+## Colour profile: Normal versus D-Log M
+
+![Normal colour compared with D-Log M](../assets/colour-profiles-normal-vs-dlogm.svg)
+
+Normal is the beginner-friendly capture profile. D-Log M is flatter and needs a deliberate colour-managed conversion. Never apply a D-Log M conversion LUT to Normal footage.
+
 ## Stabilization choices
+
+![Action 4 stabilization choices](../assets/stabilization-modes.svg)
 
 DJI lists RockSteady 3.0, RockSteady 3.0+, HorizonBalancing, and HorizonSteady for the Action 4. Availability depends on recording mode, resolution, and frame rate.
 
