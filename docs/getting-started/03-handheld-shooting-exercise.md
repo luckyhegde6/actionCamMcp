@@ -2,6 +2,8 @@
 
 A good short video is not just a collection of long recordings. It is a sequence of shots that show the viewer where they are, what matters, and what happens.
 
+![Handheld shooting technique](../assets/handheld-shooting-technique.svg)
+
 ## Handheld technique
 
 1. Hold the camera with both hands when possible.
@@ -14,6 +16,12 @@ A good short video is not just a collection of long recordings. It is a sequence
 8. Keep the lens clean and check the horizon before recording.
 
 Stabilization helps, but it cannot make every movement smooth. Good body technique still matters.
+
+## Built-in microphone audio
+
+![Cleaner built-in microphone recording](../assets/built-in-audio-capture.svg)
+
+Keep the camera close enough for speech, protect the microphones from wind, and listen to a test recording with headphones.
 
 ## The six-shot mini-story
 
