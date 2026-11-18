@@ -2,6 +2,8 @@
 
 This first editing session is designed for DaVinci Resolve Studio 21.2 on Windows 11 with 16 GB RAM and a GTX 1650 4 GB GPU.
 
+![First DaVinci Resolve project workflow](../assets/resolve-first-project-workflow.svg)
+
 ## 1. Prepare the project folder
 
 Copy your original camera files into a project folder before editing. Keep the camera originals unchanged.
