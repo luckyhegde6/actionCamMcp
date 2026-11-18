@@ -15,6 +15,8 @@ DJI says the Osmo Action 4 requires a UHS-I Speed Class 3 (U3) card and lists su
 
 Official source: [DJI Osmo Action 4 specifications](https://www.dji.com/osmo-action-4/specs).
 
+![Safe memory-card recording workflow](../assets/memory-card-recording-workflow.svg)
+
 ## Before the first recording
 
 1. Copy any existing files from the card to your computer.
