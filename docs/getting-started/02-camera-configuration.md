@@ -21,6 +21,16 @@ This is a deliberately simple starting profile for mixed indoor/outdoor handheld
 | Stabilization | RockSteady 3.0 | Useful starting point for handheld footage |
 | Audio | Built-in microphones | Your current available audio setup |
 
+### Camera screen references
+
+![DJI Action 4 resolution and frame-rate screen reference](../assets/dji-action-4-resolution-fps-screen.jpg)
+
+*Resolution/frame-rate screen reference. Use the current on-camera labels and confirm that 1080p/25 fps is selected; menu layout can differ by firmware.*
+
+![DJI Action 4 PRO mode screen reference](../assets/dji-action-4-pro-mode-screen.jpg)
+
+*PRO-mode screen reference. The beginner recommendation remains Auto exposure, Auto white balance, and Normal colour.*
+
 Some controls are mode-dependent. Use the closest matching option displayed by your current firmware; do not assume every setting is available in every resolution or frame-rate combination.
 
 ## India and 50 Hz lighting
@@ -38,6 +48,10 @@ If you see flicker:
 ## Exposure basics
 
 Exposure is how bright or dark the recorded image appears.
+
+![DJI Action 4 exposure and white-balance screen reference](../assets/dji-action-4-exposure-wb-screen.jpg)
+
+*Exposure and white-balance screen reference. For your first exercise, keep exposure Auto and WB Auto; treat this as a visual aid, not a guarantee of the exact current firmware menu.*
 
 - **Shutter speed:** how long each frame is exposed. Faster shutter freezes motion but can look staccato; slower shutter adds motion blur.
 - **ISO:** how strongly the camera amplifies the sensor signal. Higher ISO can brighten an image but usually adds visible noise.
