@@ -1,6 +1,6 @@
 # DJI Osmo Action 4 — Beginner Getting Started
 
-Welcome to the IlluMen_Dev Video Production Lab. This guide takes you from preparing your microSD card to recording a short sequence and importing it into DaVinci Resolve.
+Welcome to the IlluMen_Dev Video Production Lab. This guide takes you from preparing your microSD card to recording, reviewing and editing your first short sequence.
 
 ## Your starting setup
 
@@ -17,10 +17,6 @@ Welcome to the IlluMen_Dev Video Production Lab. This guide takes you from prepa
 | Computer | Windows 11, 16 GB RAM, GTX 1650 4 GB |
 | Lighting environment | India, 50 Hz mains |
 
-![DJI Osmo Action 4 camera product photograph](../assets/dji-action-4-product.jpg)
-
-*Official DJI product photograph. Source: [DJI Store — Osmo Action 4](https://store.dji.com/product/osmo-action-4).*
-
 ## Learning path
 
 1. [Memory card and recording workflow](01-memory-card-and-recording.md)
@@ -29,24 +25,17 @@ Welcome to the IlluMen_Dev Video Production Lab. This guide takes you from prepa
 4. [DaVinci Resolve setup and first project](04-davinci-resolve-first-project.md)
 5. [Troubleshooting and next steps](05-troubleshooting-and-next-steps.md)
 
-For the dedicated Wiki walkthrough, see [DaVinci Resolve — Setup and Basics](https://github.com/luckyhegde6/actionCamMcp/wiki/DaVinci-Resolve).
+## Phase 1 — Camera mastery
 
-## Phase-wise learning roadmap
-
-| Phase | Focus | What you will be able to do |
+| Phase | Learn | Guide |
 |---|---|---|
-| 1.1 | Camera setup and safe recording | Configure the camera and validate media |
-| 1.2 | Exposure and white balance | Understand shutter, ISO, EV and WB |
-| 1.3 | Frame rates and movement | Choose frame rates and capture slow motion |
-| 1.4 | Colour profiles | Compare Normal, D-Log M and HLG safely |
-| 1.5 | Camera-to-computer workflow | Inspect footage and prepare Resolve media |
-| 2 | Videography and storytelling | Compose intentional A-roll and B-roll |
-| 3.1 | Resolve setup and basics | Configure projects, import, edit, correct and export |
-| 3.2 | Editing and audio | Build a clean story and improve sound |
-| 4 | Colour science | Correct exposure, WB and Rec.709 |
-| 5 | LUT development | Build and validate technical and creative LUTs |
-| 6 | AI media analysis | Search, classify and review footage |
-| 7 | YouTube publishing | Prepare thumbnails, metadata and deliverables |
+| 1.1 | Camera setup, storage, safe recording and basic handheld technique | [Getting Started and first exercise](README.md) |
+| 1.2 | Shutter, ISO, EV, white balance, clipping and exposure review | [Exposure](phase-1-2-exposure.md) |
+| 1.3 | 25/30/50/60 fps, 50 Hz flicker considerations and slow motion | [Frame rates and slow motion](phase-1-3-frame-rates-slow-motion.md) |
+| 1.4 | Normal, D-Log M, HLG, CST and Rec.709 | [Colour profiles and transforms](phase-1-4-colour-profiles-cst-rec709.md) |
+| 1.5 | Metadata, previews, proxies, clipping checks and Resolve performance | [Media workflow and performance](phase-1-5-media-workflow-performance.md) |
+
+**Recommended sequence:** complete each lesson in order. Keep 1080p/25 fps and Normal colour as the everyday baseline while learning. The 30/60 fps exercises are useful comparisons, but test lighting carefully in India's 50 Hz environment.
 
 ## Your first six-shot mini-story
 
@@ -61,24 +50,28 @@ A short video becomes easier to understand when each shot has a purpose. Record 
 | 5. Point of view | A natural eye-level or chest-level perspective | Places the viewer in the scene |
 | 6. Closing | A final wide shot or meaningful detail | Gives the sequence an ending |
 
-See the [handheld shooting exercise](03-handheld-shooting-exercise.md) for shot-by-shot instructions and the review checklist.
+See the [handheld shooting exercise](03-handheld-shooting-exercise.md) for shot-by-shot instructions and review guidance.
 
-## The first-video workflow
+## First-video workflow
 
-Prepare → Configure → Record short clips → Review → Copy and verify → Edit → Export → Review
+Prepare → Configure → Record → Review exposure and motion → Copy and verify → Inspect metadata → Edit → Export → Review
 
-## Important beginner rules
+## Beginner safety and quality rules
 
-- Start with 1080p/25 fps and Normal colour. Learn exposure and composition before moving to D-Log M.
 - Do not apply a D-Log M conversion LUT to footage recorded in Normal colour.
-- Keep original camera files unchanged. Edit from a working copy when practical.
-- Never format the card until your footage has been copied and verified in at least one safe location.
-- Treat the exact SanDisk model as not yet DJI-validated unless its model number appears on DJI's current recommended list. A successful recording test is still essential.
+- HLG is not a documented selectable Action 4 capture profile; learn Rec.709 SDR first.
+- Keep original camera files unchanged and maintain a verified backup before formatting the card.
+- Start with 1080p/25 fps. Learn exposure and composition before adopting advanced profiles.
+- Camera options vary by firmware and selected mode. Confirm the current on-camera options and DJI documentation.
+
+## Resolve companion guide
+
+For installation, project setup, file-based Action 4 integration, basic editing, LUT installation and beginner export presets, see [DaVinci Resolve — Setup and First Project](04-davinci-resolve-first-project.md) and the [GitHub Wiki guide](https://github.com/luckyhegde6/actionCamMcp/wiki/DaVinci-Resolve).
 
 ## Official references
 
 - [DJI Osmo Action 4 specifications and recommended microSD cards](https://www.dji.com/osmo-action-4/specs)
-- [DJI beginner's guide: basic operations and storage](https://support.dji.com/help/content?customId=01700008145&lang=en&paperDocType=ARTICLE&re=GB&spaceId=17)
-- [Blackmagic Design DaVinci Resolve 21.1 Reference Manual](https://documents.blackmagicdesign.com/UserManuals/DaVinci_Resolve_21.1_Reference_Manual.pdf)
-
-> Menu wording and available options can vary with firmware and selected recording mode. If a label in this guide does not match your camera, use the current DJI manual and do not guess at a setting.
+- [DJI Osmo Action 4 downloads and user manual](https://www.dji.com/osmo-action-4/downloads)
+- [DJI Support — manual shutter and ISO](https://repair.dji.com/help/content?customId=01700006934&lang=en&paperDocType=ARTICLE&re=US&spaceId=17)
+- [DJI Support — automatic anti-flicker guidance](https://repair.dji.com/help/content?customId=01700008288&lang=en&paperDocType=ARTICLE&re=US&spaceId=17)
+- [Blackmagic Design — DaVinci Resolve Reference Manual](https://documents.blackmagicdesign.com/UserManuals/DaVinciResolveReferenceManual.pdf)
