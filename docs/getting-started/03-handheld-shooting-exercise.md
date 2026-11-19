@@ -4,7 +4,7 @@ A good short video is not just a collection of long recordings. It is a sequence
 
 ![DJI Osmo Action 4 in an outdoor shooting scenario](../assets/dji-action-lifestyle.jpg)
 
-*Official DJI Action 4 lifestyle photograph. Use it as camera-use inspiration; the six-shot examples below are framing exercises to capture yourself, not claims that this image demonstrates each shot type.*
+*Official DJI Action 4 lifestyle photograph. Use it as camera-use inspiration; the six-shot examples below are separate photographic references for the shot types.*
 
 ## Handheld technique
 
@@ -28,6 +28,36 @@ Keep the camera close enough for speech, protect the microphones from wind, and 
 Choose a safe, accessible subject: a desk setup, a garden plant, a street scene from a safe location, a DIY task, or a small travel location.
 
 Record each shot for roughly 8–12 seconds. These are practice lengths, not mandatory editing durations.
+
+<figure>
+  <img src="../assets/shot-01-establishing.jpg" alt="Wide garden establishing shot" />
+  <figcaption>Shot 1 — Establishing: a wide garden/location view that tells the viewer where the scene takes place. Photo reference: <a href="https://images.unsplash.com/photo-1586513677534-b926f5477204">Unsplash image</a>.</figcaption>
+</figure>
+
+<figure>
+  <img src="../assets/shot-02-detail.jpg" alt="Close-up green leaf detail" />
+  <figcaption>Shot 2 — Detail: a close-up leaf and texture reference. Keep the Action 4 subject at a workable focus distance. Photo reference: <a href="https://images.unsplash.com/photo-1762610744861-493bc400e80f">Unsplash image</a>.</figcaption>
+</figure>
+
+<figure>
+  <img src="../assets/shot-03-walking-movement.jpg" alt="Walking movement reference" />
+  <figcaption>Shot 3 — Movement: a walking/moving-camera reference. Practise slow steps and controlled movement. Photo reference: <a href="https://images.unsplash.com/photo-1763713425806-3a4f97842abe">Unsplash image</a>.</figcaption>
+</figure>
+
+<figure>
+  <img src="../assets/shot-04-electronics-activity.jpg" alt="Hands working on an electronics activity" />
+  <figcaption>Shot 4 — Activity: hands working on an electronics or DIY task. Keep the activity clear in frame. Photo reference: <a href="https://www.pexels.com/photo/person-working-on-electronics-9241777/">Pexels image</a>.</figcaption>
+</figure>
+
+<figure>
+  <img src="../assets/shot-05-pov-trail.jpg" alt="Outdoor trail point-of-view reference" />
+  <figcaption>Shot 5 — POV: an outdoor trail perspective. Frame the scene from your natural eye/chest position. Photo reference: <a href="https://images.unsplash.com/photo-1676256808494-cfac58b7229a">Unsplash image</a>.</figcaption>
+</figure>
+
+<figure>
+  <img src="../assets/shot-06-closing-sunset.jpg" alt="Golden-hour sunset landscape" />
+  <figcaption>Shot 6 — Closing: a calm golden-hour landscape that gives the mini-story a visual ending. Photo reference: <a href="https://images.unsplash.com/photo-1640619276893-f22a4b85e95c">Unsplash image</a>.</figcaption>
+</figure>
 
 | Shot | What to record | Purpose |
 |---|---|---|
