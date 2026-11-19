@@ -2,7 +2,9 @@
 
 This is a deliberately simple starting profile for mixed indoor/outdoor handheld filming. It prioritizes predictable results and an easy editing workflow.
 
-![Everyday camera configuration overview](../assets/camera-configuration-overview.svg)
+![DJI Osmo Action 4 camera](../assets/dji-action-4-product.jpg)
+
+*Official DJI product photograph; this is a product reference, not a screenshot of the camera's settings menu.*
 
 ## Starter profile
 
@@ -42,19 +44,17 @@ Exposure is how bright or dark the recorded image appears.
 - **EV compensation:** tells automatic exposure to make the image brighter or darker than its neutral calculation.
 - **White balance (WB):** controls the colour temperature so whites do not look too blue or too orange.
 
-![Illustration of the exposure controls](../assets/exposure-basics.svg)
-
 Keep Auto exposure, EV 0, and Auto WB for your first practice session. Change one variable at a time when you begin experimenting.
 
 ## Colour profile: Normal versus D-Log M
 
-![Normal colour compared with D-Log M](../assets/colour-profiles-normal-vs-dlogm.svg)
+![DJI Action 4 camera and product feature photograph](../assets/dji-camera-feature.jpg)
 
 Normal is the beginner-friendly capture profile. D-Log M is flatter and needs a deliberate colour-managed conversion. Never apply a D-Log M conversion LUT to Normal footage.
 
 ## Stabilization choices
 
-![Action 4 stabilization choices](../assets/stabilization-modes.svg)
+![DJI Osmo Action 4 stabilization and camera feature reference](../assets/dji-camera-feature-detail.jpg)
 
 DJI lists RockSteady 3.0, RockSteady 3.0+, HorizonBalancing, and HorizonSteady for the Action 4. Availability depends on recording mode, resolution, and frame rate.
 

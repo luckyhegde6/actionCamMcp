@@ -17,7 +17,9 @@ Welcome to the IlluMen_Dev Video Production Lab. This guide takes you from prepa
 | Computer | Windows 11, 16 GB RAM, GTX 1650 4 GB |
 | Lighting environment | India, 50 Hz mains |
 
-![Everyday 1080p camera profile](../assets/camera-configuration-overview.svg)
+![DJI Osmo Action 4 camera product photograph](../assets/dji-action-4-product.jpg)
+
+*Official DJI product photograph. Source: [DJI Store — Osmo Action 4](https://store.dji.com/product/osmo-action-4).*
 
 ## Learning path
 
@@ -47,8 +49,6 @@ Welcome to the IlluMen_Dev Video Production Lab. This guide takes you from prepa
 ## The first-video workflow
 
 `Prepare → Configure → Record short clips → Review → Copy and verify → Edit → Export → Review`
-
-![Illustrative first-video shot sequence](../assets/first-video-shot-sequence.svg)
 
 ## Important beginner rules
 

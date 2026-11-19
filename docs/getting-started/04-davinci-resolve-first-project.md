@@ -2,7 +2,9 @@
 
 This first editing session is designed for DaVinci Resolve Studio 21.2 on Windows 11 with 16 GB RAM and a GTX 1650 4 GB GPU.
 
-![First DaVinci Resolve project workflow](../assets/resolve-first-project-workflow.svg)
+![DaVinci Resolve editing interface](../assets/davinci-resolve-edit-page.jpg)
+
+*Official Blackmagic Design DaVinci Resolve product image. Source: [DaVinci Resolve](https://www.blackmagicdesign.com/products/davinciresolve). This is a product-page visual, not a screenshot captured from your installed Resolve 21.2 application.*
 
 ## 1. Prepare the project folder
 

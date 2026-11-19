@@ -2,7 +2,9 @@
 
 A good short video is not just a collection of long recordings. It is a sequence of shots that show the viewer where they are, what matters, and what happens.
 
-![Handheld shooting technique](../assets/handheld-shooting-technique.svg)
+![DJI Osmo Action 4 in an outdoor shooting scenario](../assets/dji-action-lifestyle.jpg)
+
+*Official DJI Action 4 lifestyle photograph. Use it as camera-use inspiration; the six-shot examples below are framing exercises to capture yourself, not claims that this image demonstrates each shot type.*
 
 ## Handheld technique
 
@@ -18,8 +20,6 @@ A good short video is not just a collection of long recordings. It is a sequence
 Stabilization helps, but it cannot make every movement smooth. Good body technique still matters.
 
 ## Built-in microphone audio
-
-![Cleaner built-in microphone recording](../assets/built-in-audio-capture.svg)
 
 Keep the camera close enough for speech, protect the microphones from wind, and listen to a test recording with headphones.
 
@@ -38,39 +38,31 @@ Record each shot for roughly 8–12 seconds. These are practice lengths, not man
 | 5. Point of view | A view from your natural eye/chest position | Places the viewer in the scene |
 | 6. Closing | A final wide or meaningful detail | Gives the sequence an ending |
 
-### Shot-by-shot visual examples
+### Shot-by-shot practice guidance
 
 #### Shot 1 — Establishing
-![Establishing shot example](../assets/shot-01-establishing.svg)
 
-Start with a wide, stable view that tells the viewer where the scene is.
+Start with a wide, stable view that tells the viewer where the scene is. Keep the horizon level and hold the camera still.
 
 #### Shot 2 — Detail
-![Detail shot example](../assets/shot-02-detail.svg)
 
 Move close enough to reveal a useful detail or texture. The Action 4 has a minimum focus distance; do not move closer than the lens can focus.
 
 #### Shot 3 — Controlled movement
-![Controlled movement example](../assets/shot-03-movement.svg)
 
 Make one deliberate pan or camera move. Start and finish with a short static hold.
 
 #### Shot 4 — Action
-![Action shot example](../assets/shot-04-action.svg)
 
 Show a person or object doing something. Keep the action clear in the frame.
 
 #### Shot 5 — Point of view
-![POV shot example](../assets/shot-05-pov.svg)
 
 Frame the scene from a natural eye-level or chest-level perspective.
 
 #### Shot 6 — Closing
-![Closing shot example](../assets/shot-06-closing.svg)
 
 Finish on a calm image that gives the mini-story a visual ending.
-
-![Six-shot practice sequence](../assets/first-video-shot-sequence.svg)
 
 ## Practice plan
 
@@ -99,7 +91,6 @@ Record 10 seconds of natural ambience. Listen for wind, traffic, fans, voices, a
 ## Review checklist
 
 Watch the clips on a computer and score each from 1–5:
-
 - Is the subject easy to understand?
 - Is the framing intentional?
 - Is the camera movement controlled?
@@ -113,3 +104,7 @@ Choose the weakest two clips and record them again. This review loop is more use
 ## Your first assignment
 
 Create a 30–60 second mini-film from the six-shot sequence. Do not add complicated transitions or effects. Use straight cuts and natural sound. The goal is to learn shot variety and continuity.
+
+## Image source
+
+[DJI Store — Osmo Action 4 product and lifestyle photographs](https://store.dji.com/product/osmo-action-4)
