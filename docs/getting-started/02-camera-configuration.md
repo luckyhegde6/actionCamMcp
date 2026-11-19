@@ -2,106 +2,83 @@
 
 This is a deliberately simple starting profile for mixed indoor/outdoor handheld filming. It prioritizes predictable results and an easy editing workflow.
 
-![DJI Osmo Action 4 camera](../assets/dji-action-4-product.jpg)
-
-*Official DJI product photograph; this is a product reference, not a screenshot of the camera's settings menu.*
-
 ## Starter profile
 
 | Setting | Starting value | Why |
 |---|---|---|
-| Mode | Video / Standard video | Normal everyday recording |
-| Aspect ratio | 16:9 | Matches a standard 1080p YouTube timeline |
-| Resolution | 1080p | Lower editing load on your GTX 1650 |
-| Frame rate | 25 fps | Natural motion and a practical choice under 50 Hz lighting |
-| Colour | Normal | Ready-to-edit image without a log conversion step |
-| Exposure | Auto | Simplifies learning composition first |
-| EV | 0 | Neutral starting exposure compensation |
-| White balance | Auto | Convenient while moving between locations |
-| Stabilization | RockSteady 3.0 | Useful starting point for handheld footage |
-| Audio | Built-in microphones | Your current available audio setup |
+| Mode | Video / Standard video | Everyday recording |
+| Aspect ratio | 16:9 | Standard 1080p YouTube timeline |
+| Resolution | 1080p | Lower editing load on GTX 1650 |
+| Frame rate | 25 fps | Natural motion and practical under 50 Hz lighting |
+| Colour | Normal | Ready to edit without log conversion |
+| Exposure | Auto | Simplifies initial learning |
+| EV | 0 | Neutral starting compensation |
+| White balance | Auto | Convenient while moving locations |
+| Stabilization | RockSteady 3.0 | General handheld starting point |
+| Audio | Built-in microphones | Current available audio setup |
 
-### Camera screen references
+## Camera screen references
 
 ![DJI Action 4 resolution and frame-rate screen reference](../assets/dji-action-4-resolution-fps-screen.jpg)
 
-*Resolution/frame-rate screen reference. Use the current on-camera labels and confirm that 1080p/25 fps is selected; menu layout can differ by firmware.*
+*Reference image only; confirm current on-camera labels and selected mode.*
 
 ![DJI Action 4 PRO mode screen reference](../assets/dji-action-4-pro-mode-screen.jpg)
 
-*PRO-mode screen reference. The beginner recommendation remains Auto exposure, Auto white balance, and Normal colour.*
+*Reference image only; beginner recommendation remains Auto exposure, Auto WB and Normal colour.*
 
-Some controls are mode-dependent. Use the closest matching option displayed by your current firmware; do not assume every setting is available in every resolution or frame-rate combination.
+Some controls are mode-dependent. Do not assume every setting is available in every resolution/frame-rate combination.
 
 ## India and 50 Hz lighting
 
-Mains-powered lights in India commonly operate at 50 Hz. Starting at **25 fps** is a practical way to reduce flicker risk under many indoor lights.
+Mains-powered lights in India commonly operate at 50 Hz. Start at 25 fps to reduce flicker risk under many indoor lights. Once familiar with exposure, test 1/50 second shutter at 25 fps. This follows the 180-degree-shutter guideline but is not a universal anti-flicker guarantee: LED drivers and dimmers vary.
 
-For the beginner profile, leave shutter on Auto. Later, after you understand exposure, test manual shutter at approximately **1/50 second** for 25 fps footage. This follows the 180-degree-shutter guideline and often gives natural motion blur. It is not a universal anti-flicker guarantee: LED drivers and dimmers can behave differently, so always test the actual lighting.
-
-If you see flicker:
-1. Record a short test under the exact lights.
-2. Try a different shutter speed or frame rate supported by the camera.
-3. Review the recorded file on a larger display.
-4. Prefer changing the lighting or shooting angle when practical.
+DJI says Action-series anti-flicker support is automatic and recommends 25/50/100 fps in 50 Hz regions. Record a short test under the exact lights and review it on a larger display.
 
 ## Exposure basics
 
-Exposure is how bright or dark the recorded image appears.
-
 ![DJI Action 4 exposure and white-balance screen reference](../assets/dji-action-4-exposure-wb-screen.jpg)
 
-*Exposure and white-balance screen reference. For your first exercise, keep exposure Auto and WB Auto; treat this as a visual aid, not a guarantee of the exact current firmware menu.*
+- **Shutter speed:** how long each frame is exposed. Faster shutter reduces motion blur; slower shutter adds blur.
+- **ISO:** sensor signal amplification. Higher ISO can brighten an image but usually adds visible noise.
+- **EV compensation:** asks Auto exposure to make the image brighter or darker.
+- **White balance:** controls colour temperature so neutral objects do not look too blue or orange.
 
-- **Shutter speed:** how long each frame is exposed. Faster shutter freezes motion but can look staccato; slower shutter adds motion blur.
-- **ISO:** how strongly the camera amplifies the sensor signal. Higher ISO can brighten an image but usually adds visible noise.
-- **EV compensation:** tells automatic exposure to make the image brighter or darker than its neutral calculation.
-- **White balance (WB):** controls the colour temperature so whites do not look too blue or too orange.
-
-Keep Auto exposure, EV 0, and Auto WB for your first practice session. Change one variable at a time when you begin experimenting.
+Keep Auto exposure, EV 0 and Auto WB for the first practice session. Then continue with the dedicated [Phase 1.2 Exposure lesson](phase-1-2-exposure.md), including manual shutter, ISO, EV, WB, clipping and review scopes.
 
 ## Colour profile: Normal versus D-Log M
 
-![DJI Action 4 camera and product feature photograph](../assets/dji-camera-feature.jpg)
-
-Normal is the beginner-friendly capture profile. D-Log M is flatter and needs a deliberate colour-managed conversion. Never apply a D-Log M conversion LUT to Normal footage.
+Normal is the beginner-friendly capture profile. D-Log M is a flatter 10-bit profile designed for post-production and needs a matching conversion. Never apply a D-Log M conversion LUT to Normal footage. See [Phase 1.4 — Colour profiles, CST and Rec.709](phase-1-4-colour-profiles-cst-rec709.md).
 
 ## Stabilization choices
 
-![DJI Osmo Action 4 stabilization and camera feature reference](../assets/dji-camera-feature-detail.jpg)
+DJI lists RockSteady 3.0, RockSteady 3.0+, HorizonBalancing and HorizonSteady for Action 4. Availability depends on recording mode, resolution and frame rate.
 
-DJI lists RockSteady 3.0, RockSteady 3.0+, HorizonBalancing, and HorizonSteady for the Action 4. Availability depends on recording mode, resolution, and frame rate.
-
-- **RockSteady 3.0:** a good general starting point for handheld movement.
-- **RockSteady 3.0+:** stronger stabilization processing; compare the crop and detail against standard RockSteady.
+- **RockSteady 3.0:** general starting point for handheld movement.
+- **RockSteady 3.0+:** stronger stabilization; compare crop/detail with standard RockSteady.
 - **HorizonBalancing:** helps keep the horizon level within its supported range.
-- **HorizonSteady:** locks the horizon through a wider range of rotation, but is more restrictive in mode/resolution availability and can crop the image more.
+- **HorizonSteady:** locks the horizon through a wider rotation range but is more restrictive and can crop more.
 
-For the first exercise, use RockSteady 3.0. Do not enable the strongest horizon mode for every shot: stabilization uses image cropping and may remove useful edge detail.
-
-DJI's current specifications say HorizonSteady is available only at 1080p (16:9) or 2.7K (16:9) at 60 fps or below. HorizonBalancing is listed for 1080p, 2.7K, or 4K (16:9) at 60 fps or below. Check the current on-camera availability.
+DJI lists HorizonSteady for 1080p/2.7K 16:9 at up to 60 fps and HorizonBalancing for 1080p, 2.7K or 4K 16:9 at up to 60 fps. Check current on-camera availability. For the first exercise, use RockSteady 3.0.
 
 ## Field of view
 
-Start with the least distorted, natural-looking field-of-view option that your selected mode offers. Very wide views are useful for action and POV but can stretch objects near the edges. Avoid changing FOV between clips in the same simple sequence unless you have a reason.
-
-## Colour mode: Normal first
-
-Normal colour is the right learning choice now. It is easier to view and edit without a technical log conversion.
-
-**Do not apply a DJI D-Log M-to-Rec.709 conversion LUT to Normal footage.** D-Log M is a different capture profile and needs its own colour-managed conversion workflow. We will introduce it only after you understand exposure, white balance, scopes, and colour spaces.
+Start with the least distorted, natural-looking option offered by your selected mode. Very wide views help action/POV but stretch objects near the edges. Avoid changing FOV between shots without a reason.
 
 ## Save and verify
 
-If your camera firmware offers custom presets, you can save the everyday profile after testing it. Menu names and preset-save paths can change; follow the current DJI on-camera labels rather than relying on an assumed menu path.
+If the current firmware offers custom presets, save the everyday profile after testing. Menu names and preset-save paths can change; follow the current DJI on-camera labels.
 
-Before every shoot, record a short test and confirm:
-- The frame rate and resolution are correct.
-- The image is not unintentionally overexposed.
-- The horizon is reasonably level.
-- The microphone captures usable sound.
-- The card records without errors.
+Before every shoot, record a short test and confirm resolution/frame rate, exposure, horizon, usable audio and successful card recording.
 
-## Official reference
+## Continue learning
 
-[DJI Osmo Action 4 specifications — recording modes and stabilization availability](https://www.dji.com/osmo-action-4/specs)
+- [Phase 1.2 — Exposure](phase-1-2-exposure.md)
+- [Phase 1.3 — Frame rates and slow motion](phase-1-3-frame-rates-slow-motion.md)
+- [Phase 1.4 — Colour profiles, CST and Rec.709](phase-1-4-colour-profiles-cst-rec709.md)
+- [Phase 1.5 — Media workflow and Resolve performance](phase-1-5-media-workflow-performance.md)
+
+## Official references
+
+- [DJI Action 4 specifications](https://www.dji.com/osmo-action-4/specs)
+- [DJI Support — anti-flicker guidance](https://repair.dji.com/help/content?customId=01700008288&lang=en&paperDocType=ARTICLE&re=US&spaceId=17)
