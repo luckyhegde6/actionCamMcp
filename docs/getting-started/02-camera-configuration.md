@@ -2,6 +2,10 @@
 
 This is a deliberately simple starting profile for mixed indoor/outdoor handheld filming. It prioritizes predictable results and an easy editing workflow.
 
+![DJI Osmo Action 4 camera](../assets/dji-action-4-product.jpg)
+
+*Official DJI product photograph; this is a product reference, not a screenshot of the camera's settings menu.*
+
 ## Starter profile
 
 | Setting | Starting value | Why |
@@ -16,6 +20,16 @@ This is a deliberately simple starting profile for mixed indoor/outdoor handheld
 | White balance | Auto | Convenient while moving between locations |
 | Stabilization | RockSteady 3.0 | Useful starting point for handheld footage |
 | Audio | Built-in microphones | Your current available audio setup |
+
+### Camera screen references
+
+![DJI Action 4 resolution and frame-rate screen reference](../assets/dji-action-4-resolution-fps-screen.jpg)
+
+*Resolution/frame-rate screen reference. Use the current on-camera labels and confirm that 1080p/25 fps is selected; menu layout can differ by firmware.*
+
+![DJI Action 4 PRO mode screen reference](../assets/dji-action-4-pro-mode-screen.jpg)
+
+*PRO-mode screen reference. The beginner recommendation remains Auto exposure, Auto white balance, and Normal colour.*
 
 Some controls are mode-dependent. Use the closest matching option displayed by your current firmware; do not assume every setting is available in every resolution or frame-rate combination.
 
@@ -35,16 +49,26 @@ If you see flicker:
 
 Exposure is how bright or dark the recorded image appears.
 
+![DJI Action 4 exposure and white-balance screen reference](../assets/dji-action-4-exposure-wb-screen.jpg)
+
+*Exposure and white-balance screen reference. For your first exercise, keep exposure Auto and WB Auto; treat this as a visual aid, not a guarantee of the exact current firmware menu.*
+
 - **Shutter speed:** how long each frame is exposed. Faster shutter freezes motion but can look staccato; slower shutter adds motion blur.
 - **ISO:** how strongly the camera amplifies the sensor signal. Higher ISO can brighten an image but usually adds visible noise.
 - **EV compensation:** tells automatic exposure to make the image brighter or darker than its neutral calculation.
 - **White balance (WB):** controls the colour temperature so whites do not look too blue or too orange.
 
-![Illustration of the exposure controls](../assets/exposure-basics.svg)
-
 Keep Auto exposure, EV 0, and Auto WB for your first practice session. Change one variable at a time when you begin experimenting.
 
+## Colour profile: Normal versus D-Log M
+
+![DJI Action 4 camera and product feature photograph](../assets/dji-camera-feature.jpg)
+
+Normal is the beginner-friendly capture profile. D-Log M is flatter and needs a deliberate colour-managed conversion. Never apply a D-Log M conversion LUT to Normal footage.
+
 ## Stabilization choices
+
+![DJI Osmo Action 4 stabilization and camera feature reference](../assets/dji-camera-feature-detail.jpg)
 
 DJI lists RockSteady 3.0, RockSteady 3.0+, HorizonBalancing, and HorizonSteady for the Action 4. Availability depends on recording mode, resolution, and frame rate.
 

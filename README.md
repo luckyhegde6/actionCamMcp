@@ -13,7 +13,7 @@ New to the DJI Osmo Action 4 or DaVinci Resolve? Start here:
 - [DaVinci Resolve first project](docs/getting-started/04-davinci-resolve-first-project.md)
 - [Troubleshooting and next steps](docs/getting-started/05-troubleshooting-and-next-steps.md)
 
-The guide includes original illustrative SVG diagrams in `docs/assets/`. They are educational illustrations, not screenshots of the DJI camera or DaVinci Resolve interface.
+The getting-started guide uses official DJI, SanDisk, and Blackmagic Design product photographs in standard JPG/PNG formats under `docs/assets/`. These are product and lifestyle references, not camera-menu or Resolve-version-specific screenshots.
 
 ## Project direction
 

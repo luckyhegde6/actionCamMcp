@@ -4,6 +4,10 @@
 
 You have a **SanDisk Extreme 128 GB microSD card marked V30**.
 
+![SanDisk Extreme 128 GB microSD card](../assets/sandisk-extreme-128gb.png)
+
+*SanDisk product image for the 128 GB Extreme microSD model. Source: [SanDisk official product page](https://www.sandisk.com/en-in/products/memory-cards/microsd-cards/sandisk-extreme-uhs-i-microsd?sku=SDSQXA1-128G-GN6MA).*
+
 DJI says the Osmo Action 4 requires a UHS-I Speed Class 3 (U3) card and lists supported microSD capacity up to 512 GB. DJI's current recommended-card list names a SanDisk Extreme PRO 32 GB model, plus selected Kingston and Lexar models. It does **not** explicitly name your exact SanDisk Extreme 128 GB SKU.
 
 ### What that means
