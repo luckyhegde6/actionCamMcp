@@ -26,8 +26,10 @@ Welcome to the IlluMen_Dev Video Production Lab. This guide takes you from prepa
 1. [Memory card and recording workflow](01-memory-card-and-recording.md)
 2. [Beginner camera configuration](02-camera-configuration.md)
 3. [Handheld shooting and first exercise](03-handheld-shooting-exercise.md)
-4. [Importing and editing in DaVinci Resolve](04-davinci-resolve-first-project.md)
+4. [DaVinci Resolve setup and first project](04-davinci-resolve-first-project.md)
 5. [Troubleshooting and next steps](05-troubleshooting-and-next-steps.md)
+
+For the dedicated Wiki walkthrough, see [DaVinci Resolve — Setup and Basics](https://github.com/luckyhegde6/actionCamMcp/wiki/DaVinci-Resolve).
 
 ## Phase-wise learning roadmap
 
@@ -39,16 +41,31 @@ Welcome to the IlluMen_Dev Video Production Lab. This guide takes you from prepa
 | 1.4 | Colour profiles | Compare Normal, D-Log M and HLG safely |
 | 1.5 | Camera-to-computer workflow | Inspect footage and prepare Resolve media |
 | 2 | Videography and storytelling | Compose intentional A-roll and B-roll |
-| 3 | Resolve fundamentals | Import, organize, trim and export |
-| 4 | Editing and audio | Build a clean story and improve sound |
-| 5 | Colour science | Correct exposure, WB and Rec.709 |
-| 6 | LUT development | Build and validate technical and creative LUTs |
-| 7 | AI media analysis | Search, classify and review footage |
-| 8 | YouTube publishing | Prepare thumbnails, metadata and deliverables |
+| 3.1 | Resolve setup and basics | Configure projects, import, edit, correct and export |
+| 3.2 | Editing and audio | Build a clean story and improve sound |
+| 4 | Colour science | Correct exposure, WB and Rec.709 |
+| 5 | LUT development | Build and validate technical and creative LUTs |
+| 6 | AI media analysis | Search, classify and review footage |
+| 7 | YouTube publishing | Prepare thumbnails, metadata and deliverables |
+
+## Your first six-shot mini-story
+
+A short video becomes easier to understand when each shot has a purpose. Record the six shots below in order; aim for roughly 8–12 seconds per clip and hold the camera steady briefly before and after movement.
+
+| Shot | What to capture | Why it matters |
+|---|---|---|
+| 1. Establishing | A wide view of the location | Answers “Where are we?” |
+| 2. Detail | A close view of an interesting object or texture | Shows what matters |
+| 3. Movement | One slow, controlled pan or camera move | Adds visual energy |
+| 4. Action | A person or object doing something | Shows something happening |
+| 5. Point of view | A natural eye-level or chest-level perspective | Places the viewer in the scene |
+| 6. Closing | A final wide shot or meaningful detail | Gives the sequence an ending |
+
+See the [handheld shooting exercise](03-handheld-shooting-exercise.md) for shot-by-shot instructions and the review checklist.
 
 ## The first-video workflow
 
-`Prepare → Configure → Record short clips → Review → Copy and verify → Edit → Export → Review`
+Prepare → Configure → Record short clips → Review → Copy and verify → Edit → Export → Review
 
 ## Important beginner rules
 
