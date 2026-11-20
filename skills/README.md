@@ -2,9 +2,24 @@
 
 Reusable workflow guides for contributors and AI coding agents.
 
-| Skill | Purpose |
-|---|---|
-| [ChatGPT Codex + GitHub](chatgpt-codex-github-workflow/SKILL.md) | Connect GitHub, choose Codex Cloud/Local/Worktree, inspect, edit, test, commit and open PRs safely |
-| [GitHub Wiki Git Publishing](github-wiki-git-publishing/SKILL.md) | Clone and publish Wiki Markdown and raster assets using the Wiki Git repository |
+## Available skills
 
-These guides are maintained as repository documentation. Codex skill auto-discovery depends on the client and supported skill directory; see the Codex skill instructions in the ChatGPT Codex + GitHub guide before relying on automatic discovery.
+| Skill | Human-readable guide | Codex-discoverable copy |
+|---|---|---|
+| ChatGPT Codex + GitHub | [SKILL.md](chatgpt-codex-github-workflow/SKILL.md) | [SKILL.md](../.agents/skills/chatgpt-codex-github-workflow/SKILL.md) |
+| GitHub Wiki Git Publishing | [SKILL.md](github-wiki-git-publishing/SKILL.md) | [SKILL.md](../.agents/skills/github-wiki-git-publishing/SKILL.md) |
+
+The canonical human-readable guides live under `skills/`. Matching copies under `.agents/skills/<skill-name>/SKILL.md` follow the repository-level Codex skill discovery convention documented by OpenAI. Keep both copies synchronized when changing a workflow.
+
+## Skill authoring rules
+
+Each skill must include:
+- YAML frontmatter with `name` and a concise `description`.
+- Explicit trigger conditions.
+- Prerequisites, repository and account permission requirements.
+- A step-by-step workflow.
+- Safety boundaries and failure handling.
+- Validation and reporting checklists.
+- Official documentation links.
+
+Do not assume a generic `skills/` directory is automatically discovered by every Codex client. The supported discovery path depends on the client; this repository uses `.agents/skills/` for Codex project-level skills and `skills/` for human-readable source documentation.
