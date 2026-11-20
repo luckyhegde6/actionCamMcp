@@ -26,3 +26,10 @@ The learning guides use official product references and clearly distinguish thos
 The long-term goal is a local-first workflow for recording, organizing, editing, colour grading, validating exports, and using AI/MCP tools to assist video production.
 
 See the [GitHub Wiki](https://github.com/luckyhegde6/actionCamMcp/wiki) for the companion learning guides.
+
+## Contributor and AI-agent workflows
+
+- [Repository skills index](skills/README.md)
+- [ChatGPT Codex + GitHub workflow](skills/chatgpt-codex-github-workflow/SKILL.md)
+- [GitHub Wiki Git publishing](skills/github-wiki-git-publishing/SKILL.md)
+- [Wiki and Codex publishing architecture](docs/GITHUB_WIKI_AND_CODEX_WORKFLOW.md)
