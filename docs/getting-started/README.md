@@ -68,6 +68,10 @@ Prepare → Configure → Record → Review exposure and motion → Copy and ver
 
 For installation, project setup, file-based Action 4 integration, basic editing, LUT installation and beginner export presets, see [DaVinci Resolve — Setup and First Project](04-davinci-resolve-first-project.md) and the [GitHub Wiki guide](https://github.com/luckyhegde6/actionCamMcp/wiki/DaVinci-Resolve).
 
+## Contributor and Wiki publishing
+
+The normal repository is the canonical source for lessons and assets. The GitHub Wiki is a separate Git repository and must be published separately. See [GitHub Wiki and ChatGPT Codex workflow](../GITHUB_WIKI_AND_CODEX_WORKFLOW.md), [Codex + GitHub skill](../../skills/chatgpt-codex-github-workflow/SKILL.md), and [Wiki Git publishing skill](../../skills/github-wiki-git-publishing/SKILL.md).
+
 ## Official references
 
 - [DJI Osmo Action 4 specifications and recommended microSD cards](https://www.dji.com/osmo-action-4/specs)
