@@ -5,9 +5,11 @@ This project uses two separate Git destinations:
 1. **Normal repository** (`luckyhegde6/actionCamMcp`): canonical source for camera lessons, diagrams, project documentation and reusable agent guidance.
 2. **GitHub Wiki** (`luckyhegde6/actionCamMcp.wiki.git`): reader-facing long-form Wiki pages and their image assets.
 
-## Why the Wiki API returned 404
+## Why the GitHub connector returned 404
 
-GitHub's documentation says the Wiki can be cloned after an initial Wiki page has been created. A repository with Wikis enabled can therefore still return 404 for the `.wiki.git` repository until the first page exists. The first page can be initialized through the repository's Wiki UI; after that, use normal Git clone/commit/push.
+The public Wiki pages are already published and accessible. The 404 occurs when the ChatGPT GitHub connector tries to resolve `luckyhegde6/actionCamMcp.wiki` as a normal REST repository or create a Git blob there. The connector can access the source repository but its repository-scoped Git Data API does not expose the Wiki Git remote. This is a connector/API boundary, not evidence that the Wiki needs initialization.
+
+Use an actual Codex Local or Cloud shell with Git, network access and authorized credentials to run `git clone https://github.com/luckyhegde6/actionCamMcp.wiki.git`, update the existing pages, commit and push. Do not retry the REST Git Data calls against the `.wiki` name after this 404 has been confirmed.
 
 ## Recommended publication flow
 
