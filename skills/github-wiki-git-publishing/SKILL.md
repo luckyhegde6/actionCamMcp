@@ -17,7 +17,7 @@ https://github.com/OWNER/REPO.wiki.git
 
 The Wiki repository is not a normal subdirectory of the source repository. Do not assume the source repository's GitHub Contents API can read or write Wiki pages.
 
-GitHub documents that the Wiki Git repository becomes clonable after an initial Wiki page has been created. A 404 for `OWNER/REPO.wiki` before that initialization is not proof that the source repository is missing or that Wiki is disabled. First check that the repository has `has_wiki=true` and whether the Wiki has an initial page.
+GitHub Wiki pages can be publicly visible in the web UI while the Wiki Git remote remains unavailable through the standard GitHub REST repository endpoints. Do not infer that a published Wiki is uninitialized just because `GET /repos/OWNER/REPO.wiki` returns 404. Confirm the public Wiki page separately, then test the Git remote with `git ls-remote https://github.com/OWNER/REPO.wiki.git` or `git clone`. A successful public page fetch proves publication, not Git transport or connector write access.
 
 ## Preferred workflow: clone, edit, commit, push
 
@@ -31,7 +31,7 @@ git branch --show-current
 git pull --ff-only
 ```
 
-If the Wiki is not initialized, stop and ask the repository owner to create its first page through GitHub's Wiki UI. Then retry the clone. Do not fabricate a Wiki repository or replace the source repository.
+If `git ls-remote` or `git clone` fails, capture the exact Git transport error. If the Wiki page is already visible, do not ask the owner to initialize it again; check authentication, network access, repository policy and whether the environment supports Git over HTTPS. Do not fabricate a Wiki repository or replace the source repository.
 
 Create or update page files in Markdown. The filename becomes the page title; use hyphens for spaces, avoid reserved filename characters, and preserve existing pages.
 
@@ -110,22 +110,22 @@ After pushing:
 - Confirm the old illustration is replaced, not duplicated.
 - Report exact live URLs and commit SHA.
 
-## GitHub API alternative
+## GitHub connector/API limitation
 
-The GitHub REST Contents and Git Data APIs operate on a repository. The Wiki has its own Git remote and Git history; it is not a special `/wiki` path in the normal source repository API.
+The ChatGPT GitHub connector exposes repository-scoped REST actions such as Contents and Git Data operations. In this workflow, the connector successfully resolves `luckyhegde6/actionCamMcp` but returns `404 Not Found` for `luckyhegde6/actionCamMcp.wiki` when calling `get_repo` and `create_blob`. This can happen even while the public Wiki pages are already published and visible in the browser: the Wiki Git remote is not exposed as a normal repository resource through these connector actions.
 
-If a GitHub App/connector can access the Wiki repository as a repository, it may be possible to use Git Data API operations (create blobs, trees, commits, update the default branch ref). This is conditional on the Wiki repository being initialized and the connector granting write access to it. The Contents API may return 404 for the Wiki repository before its first page exists. Never claim a Wiki API write succeeded without fetching the live Wiki result.
+Do not retry `create_blob`, `create_tree`, `create_commit` or `update_ref` against `OWNER/REPO.wiki` after the connector has established this 404 boundary. Those actions cannot publish Wiki pages through this connector. Use an actual Codex Local or Cloud shell with Git transport and authorized credentials to clone, commit and push `https://github.com/OWNER/REPO.wiki.git`. The connector can still update the normal source repository; it cannot substitute for Git push to the Wiki remote. Always verify the live Wiki after a push.
 
 ## Troubleshooting
 
 | Symptom | Likely cause | Safe response |
 |---|---|---|
-| `OWNER/REPO.wiki` returns 404 | Wiki has not been initialized, or caller lacks access | Check `has_wiki`; create the initial page in the Wiki UI; retry |
+| Public Wiki page works but GitHub REST connector returns 404 for `OWNER/REPO.wiki` | Wiki Git remote is not exposed as a normal REST repository to that connector | Do not reinitialize the Wiki; use Codex Local/Cloud Git transport with authorized credentials |
 | Clone prompts for credentials | Private Wiki or missing credentials | Use the signed-in Git credential flow; never request a password in chat |
 | Push rejected | Remote changed or caller lacks Wiki write access | Fetch/pull and reconcile; do not force-push |
 | Page exists but image is broken | Wrong relative path/case or uncommitted image | Verify file path and commit image |
 | Markdown page not visible | Change pushed to non-default branch | Merge/push to Wiki default branch |
-| Main repo API works but Wiki API returns 404 | Separate repository and permission boundary | Do not infer Wiki write permission from source-repo access |
+| Main repo API works but Wiki Git Data actions return 404 | Connector's repository-scoped API does not expose the Wiki Git remote | Switch to an actual Git clone/push environment; keep normal-repo and Wiki commits separate |
 
 ## Official references
 
