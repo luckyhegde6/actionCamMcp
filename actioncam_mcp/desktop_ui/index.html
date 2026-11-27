@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ActionCam Studio MCP - DaVinci Resolve Workflow</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="bg-dark text-light">
+  <!-- Top App Navigation & Status Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="app-logo">
+        <span class="logo-icon">&#9654;</span>
+        <span class="logo-title">ActionCam <strong>MCP Studio</strong></span>
+        <span class="badge-tag">DJI Action 4 &bull; DaVinci Resolve 21</span>
+      </div>
+    </div>
+    <div class="header-center">
+      <div id="resolve-status-pill" class="status-pill status-connecting">
+        <span class="status-dot"></span>
+        <span id="resolve-status-text">Checking Resolve Connection...</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <button id="btn-launch-resolve" class="btn btn-secondary btn-sm" style="display: none;">Launch DaVinci Resolve</button>
+      <button id="btn-quick-run" class="btn btn-primary btn-sm">Run Full Workflow</button>
+    </div>
+  </header>
+
+  <!-- Main Workflow Container -->
+  <main class="workflow-container">
+    <!-- Step Navigation Tabs -->
+    <nav class="workflow-tabs">
+      <button class="tab-btn active" data-tab="tab-ingest">
+        <span class="tab-num">1</span>
+        <span class="tab-title">Media Ingest & Bins</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-presets">
+        <span class="tab-num">2</span>
+        <span class="tab-title">Camera & LUTs</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-decoder">
+        <span class="tab-num">3</span>
+        <span class="tab-title">Reference Decoder</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-matcher">
+        <span class="tab-num">4</span>
+        <span class="tab-title">Smart Cut Assembly</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-sound">
+        <span class="tab-num">5</span>
+        <span class="tab-title">Audio & Sound FX</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-export">
+        <span class="tab-num">6</span>
+        <span class="tab-title">Deliver & Export</span>
+      </button>
+    </nav>
+
+    <!-- Tab Contents -->
+    <div class="tab-content-area">
+      
+      <!-- TAB 1: MEDIA INGEST & BINS -->
+      <section id="tab-ingest" class="tab-pane active">
+        <div class="pane-grid">
+          <div class="card">
+            <h3>Directory Selection & Organization</h3>
+            <p class="text-muted">Select raw footage from SD card or local ingest folders. The organizer automatically detects 120fps slow-motion and sets up standardized project bins.</p>
+            
+            <div class="form-group">
+              <label>Source Footage Directory</label>
+              <div class="input-action-group">
+                <input type="text" id="input-source-dir" class="form-control" value="F:/Edits/actionCamMcp/docs/assets" placeholder="e.g. D:/DCIM/100MEDIA or local folder">
+                <button id="btn-scan-media" class="btn btn-secondary">Scan Clips</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Project Workspace Directory</label>
+              <input type="text" id="input-project-dir" class="form-control" value="F:/Edits/actionCamMcp/projects/Action4_Project_01" placeholder="e.g. F:/Edits/actionCamMcp/projects/Action4_01">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col">
+                <label>File Organization Mode</label>
+                <select id="select-org-mode" class="form-control">
+                  <option value="copy" selected>Copy Original Files</option>
+                  <option value="symlink">Symlink (Zero Disk Space)</option>
+                  <option value="move">Move Files</option>
+                </select>
+              </div>
+              <div class="form-group col">
+                <label>DaVinci Media Pool Action</label>
+                <select id="select-bin-action" class="form-control">
+                  <option value="create_bins" selected>Create Standardized Bins in Resolve</option>
+                  <option value="skip">Disk Only</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="action-footer">
+              <button id="btn-organize-files" class="btn btn-primary">Auto-Organize Project Files & Bins</button>
+            </div>
+          </div>
+
+          <!-- Ingest Results / Bin Tree -->
+          <div class="card">
+            <div class="card-header-flex">
+              <h3>Scanned Media & Bins Preview</h3>
+              <span id="asset-count-badge" class="badge">0 clips found</span>
+            </div>
+            <div id="media-list" class="asset-list-container">
+              <div class="empty-state">Scan a directory to inspect clips, resolutions, and slow-mo flags.</div>
+            </div>
+            <div class="bin-tree-preview">
+              <h4>Standardized Project Hierarchy:</h4>
+              <ul class="tree-view">
+                <li>📁 01_Original_Camera_Files
+                  <ul>
+                    <li>📁 Realtime_25_30fps</li>
+                    <li>📁 SlowMo_60_120fps (Auto-detected action shots)</li>
+                  </ul>
+                </li>
+                <li>📁 02_Reference_Videos</li>
+                <li>📁 03_Audio_Music_SFX (Music, Impacts, Whooshes)</li>
+                <li>📁 04_LUTs_Presets</li>
+                <li>📁 05_Exports</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: PRESETS & LUTS -->
+      <section id="tab-presets" class="tab-pane">
+        <div class="pane-grid">
+          <div class="card">
+            <h3>Camera Profile & Color Presets</h3>
+            <p class="text-muted">Configure color transforms and camera-specific LUTs for DJI Osmo Action 4 10-bit D-Log M footage.</p>
+
+            <div class="form-group">
+              <label>Camera Profile</label>
+              <select id="select-camera-preset" class="form-control">
+                <option value="dji_action4_dlog_m" selected>DJI Action 4 — D-Log M (10-Bit Flat)</option>
+                <option value="dji_action4_normal">DJI Action 4 — Normal Rec.709</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>LUT Transformation (.cube)</label>
+              <select id="select-lut" class="form-control">
+                <option value="DJI_Action4_DLogM_to_Rec709.cube" selected>Official DJI Action 4 D-Log M &rarr; Rec.709 Standard</option>
+                <option value="Action_Vibrant_TealOrange.cube">Cinematic Action — Teal &amp; Orange Contrast</option>
+                <option value="Mountain_Highlands_Vivid.cube">Action Sports — Vivid Sky &amp; Mountain</option>
+                <option value="custom">Custom .cube File...</option>
+              </select>
+            </div>
+
+            <div id="custom-lut-group" class="form-group" style="display:none;">
+              <label>Custom LUT Path</label>
+              <input type="text" id="input-custom-lut" class="form-control" placeholder="C:/LUTs/my_grade.cube">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col">
+                <label>Timeline Resolution</label>
+                <select id="select-resolution" class="form-control">
+                  <option value="1920x1080" selected>1080p HD (1920 &times; 1080) — Best for GTX 1650</option>
+                  <option value="3840x2160">4K UHD (3840 &times; 2160)</option>
+                  <option value="1080x1920">Vertical (1080 &times; 1920) — Reels / TikTok</option>
+                </select>
+              </div>
+              <div class="form-group col">
+                <label>Timeline Frame Rate</label>
+                <select id="select-fps" class="form-control">
+                  <option value="25.0" selected>25.0 fps (Standard PAL / Action)</option>
+                  <option value="30.0">30.0 fps (Web / NTSC)</option>
+                  <option value="24.0">24.0 fps (Cinematic Film)</option>
+                  <option value="60.0">60.0 fps (High Smoothness)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>VFX & Motion Controls</h3>
+            <div class="toggle-group">
+              <label class="switch-container">
+                <input type="checkbox" id="chk-slowmo-retime" checked>
+                <span class="switch-label"><strong>Auto-Retime 120fps Clips:</strong> Automatically slows down high-fps action clips to timeline speed (0.208&times; slow-mo).</span>
+              </label>
+
+              <label class="switch-container">
+                <input type="checkbox" id="chk-optical-flow" checked>
+                <span class="switch-label"><strong>Optical Flow Retime Process:</strong> Uses DaVinci Resolve Optical Flow for ultra-smooth frame interpolation.</span>
+              </label>
+
+              <label class="switch-container">
+                <input type="checkbox" id="chk-dynamic-zoom" checked>
+                <span class="switch-label"><strong>Smart Push-In Zooms:</strong> Adds subtle slow zooms (1.0 &rarr; 1.08) on establishing and hero shots.</span>
+              </label>
+
+              <label class="switch-container">
+                <input type="checkbox" id="chk-stabilization">
+                <span class="switch-label"><strong>Camera Stabilization Pass:</strong> Enables Resolve Camera Lock / Smooth on walking and handheld shots.</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: REFERENCE DECODER -->
+      <section id="tab-decoder" class="tab-pane">
+        <div class="pane-grid">
+          <div class="card">
+            <h3>Reference Video Analysis</h3>
+            <p class="text-muted">Import a reference video to decode its edit structure. DaVinci Resolve's Neural Engine DetectSceneCuts() analyzes every shot cut, duration, and rhythm.</p>
+
+            <div class="form-group">
+              <label>Reference Video Path</label>
+              <div class="input-action-group">
+                <input type="text" id="input-ref-path" class="form-control" value="F:/Edits/actionCamMcp/docs/assets/davinci-resolve-edit-page.jpg" placeholder="e.g. F:/Reference/sports_edit_ref.mp4">
+                <button id="btn-decode-ref" class="btn btn-primary">Decode Reference Edit</button>
+              </div>
+            </div>
+
+            <div class="blueprint-summary" id="blueprint-summary" style="display:none;">
+              <div class="summary-stat">
+                <span class="stat-label">Total Duration</span>
+                <span class="stat-val" id="stat-duration">0.0s</span>
+              </div>
+              <div class="summary-stat">
+                <span class="stat-label">Total Shots</span>
+                <span class="stat-val" id="stat-shots">0</span>
+              </div>
+              <div class="summary-stat">
+                <span class="stat-label">Avg Shot Length</span>
+                <span class="stat-val" id="stat-avg-shot">0.0s</span>
+              </div>
+              <div class="summary-stat">
+                <span class="stat-label">Pacing Arc</span>
+                <span class="stat-val" id="stat-pacing">Dynamic Action</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Decoded Cuts & Rhythm Timeline</h3>
+            <div id="timeline-visualizer" class="timeline-visualizer-container">
+              <div class="empty-state">No reference video decoded yet. Click "Decode Reference Edit" to analyze cut rhythm.</div>
+            </div>
+            <div class="table-container">
+              <table class="data-table" id="shots-table">
+                <thead>
+                  <tr>
+                    <th>Shot #</th>
+                    <th>In (Frame)</th>
+                    <th>Out (Frame)</th>
+                    <th>Duration</th>
+                    <th>Pacing</th>
+                    <th>VFX Suggestion</th>
+                    <th>Audio Cue</th>
+                  </tr>
+                </thead>
+                <tbody id="shots-tbody">
+                  <tr><td colspan="7" class="text-center text-muted">Awaiting analysis</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: SMART CUT ASSEMBLY -->
+      <section id="tab-matcher" class="tab-pane">
+        <div class="pane-grid">
+          <div class="card">
+            <h3>Clip-to-Reference Matching</h3>
+            <p class="text-muted">Matches raw clips from your chosen directories to the reference cuts. Assigns high-speed action clips to fast montage beats and wide scenery to establishing beats.</p>
+
+            <div class="form-group">
+              <label>Target Timeline Name</label>
+              <input type="text" id="input-timeline-name" class="form-control" value="ActionCam_AI_Edit_01">
+            </div>
+
+            <div class="form-group">
+              <label>Matching Strategy</label>
+              <select id="select-matching-strategy" class="form-control">
+                <option value="smart_pacing" selected>Smart Pacing &amp; Slow-Mo Energy Match</option>
+                <option value="chronological">Chronological Order</option>
+                <option value="variety">Max Variety (Alternate Locations)</option>
+              </select>
+            </div>
+
+            <div class="action-footer">
+              <button id="btn-preview-matches" class="btn btn-secondary">Preview Cut Matches</button>
+              <button id="btn-assemble-resolve" class="btn btn-primary">Assemble in DaVinci Resolve</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Assembly Manifest Preview</h3>
+            <div class="table-container">
+              <table class="data-table" id="matches-table">
+                <thead>
+                  <tr>
+                    <th>Shot</th>
+                    <th>Timeline Time</th>
+                    <th>Matched Source Clip</th>
+                    <th>Source In/Out</th>
+                    <th>Speed Retime</th>
+                    <th>Assigned LUT</th>
+                  </tr>
+                </thead>
+                <tbody id="matches-tbody">
+                  <tr><td colspan="6" class="text-center text-muted">Click "Preview Cut Matches" to generate manifest</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: AUDIO & SOUND DESIGN -->
+      <section id="tab-sound" class="tab-pane">
+        <div class="pane-grid">
+          <div class="card">
+            <h3>Music & Sound Design Engine</h3>
+            <p class="text-muted">Align background music and automatically insert transition sound effects (impacts, risers, whooshes) on DaVinci Fairlight tracks.</p>
+
+            <div class="form-group">
+              <label>Background Music Track (BGM)</label>
+              <input type="text" id="input-bgm-path" class="form-control" placeholder="e.g. F:/Edits/Audio/high_energy_track.wav">
+            </div>
+
+            <div class="form-group">
+              <label>SFX Assets Folder</label>
+              <input type="text" id="input-sfx-folder" class="form-control" placeholder="e.g. F:/Edits/Audio/SFX">
+            </div>
+
+            <div class="toggle-group">
+              <label class="switch-container">
+                <input type="checkbox" id="chk-impact-cues" checked>
+                <span class="switch-label"><strong>Cut Impacts:</strong> Place sub-bass impact hits on beat drops and fast cut transitions (Track A2).</span>
+              </label>
+
+              <label class="switch-container">
+                <input type="checkbox" id="chk-whoosh-cues" checked>
+                <span class="switch-label"><strong>Transition Whooshes:</strong> Place directional whoosh sounds 6 frames before scene changes (Track A3).</span>
+              </label>
+
+              <label class="switch-container">
+                <input type="checkbox" id="chk-auto-ducking" checked>
+                <span class="switch-label"><strong>Fairlight Auto-Ducking:</strong> Automatically lowers BGM music level (-6dB) during dialogue/spoken segments.</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Fairlight Track Layout</h3>
+            <div class="track-layout-diagram">
+              <div class="track-card video-track">
+                <div class="track-header">Track V1: Video Primary</div>
+                <div class="track-body">Matched raw clips with D-Log M LUT, speed retiming, and zooms.</div>
+              </div>
+              <div class="track-card video-track">
+                <div class="track-header">Track V2: VFX &amp; Overlays</div>
+                <div class="track-body">Adjustment clips, motion graphics, and title cards.</div>
+              </div>
+              <div class="track-card audio-track">
+                <div class="track-header">Track A1: Master Music (BGM)</div>
+                <div class="track-body">Master soundtrack aligned to video timeline.</div>
+              </div>
+              <div class="track-card audio-track">
+                <div class="track-header">Track A2: Cut Impacts &amp; Drops</div>
+                <div class="track-body">Sub-bass hits and beat impact sound effects.</div>
+              </div>
+              <div class="track-card audio-track">
+                <div class="track-header">Track A3: Transition Whooshes</div>
+                <div class="track-body">Whooshes and swishes leading into fast cuts.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: DELIVER & EXPORT -->
+      <section id="tab-export" class="tab-pane">
+        <div class="pane-grid">
+          <div class="card">
+            <h3>Deliver Page Export Presets</h3>
+            <p class="text-muted">Choose your target export format. Configures DaVinci Resolve Studio Deliver page render settings automatically.</p>
+
+            <div class="preset-cards-grid">
+              <div class="preset-card active" data-profile="youtube_4k">
+                <div class="preset-card-title">YouTube 4K UHD</div>
+                <div class="preset-card-specs">3840 &times; 2160 &bull; H.265 &bull; 45 Mbps &bull; 25fps</div>
+                <p>Best for high-detail action camera uploads with crisp motion.</p>
+              </div>
+
+              <div class="preset-card" data-profile="reels_shorts_9_16">
+                <div class="preset-card-title">Reels / Shorts (9:16)</div>
+                <div class="preset-card-specs">1080 &times; 1920 &bull; H.264 &bull; 20 Mbps &bull; 30fps</div>
+                <p>Vertical format optimized for Instagram, TikTok, and YouTube Shorts.</p>
+              </div>
+
+              <div class="preset-card" data-profile="master_dnxhr">
+                <div class="preset-card-title">Master Archive (DNxHR)</div>
+                <div class="preset-card-specs">3840 &times; 2160 &bull; DNxHR HQX &bull; 10-bit &bull; Master</div>
+                <p>Lossless 10-bit master archive for permanent storage and grading.</p>
+              </div>
+
+              <div class="preset-card" data-profile="web_1080p_fast">
+                <div class="preset-card-title">Web Preview 1080p</div>
+                <div class="preset-card-specs">1920 &times; 1080 &bull; H.264 &bull; 10 Mbps &bull; Fast</div>
+                <p>Lightweight preview export for quick sharing and review.</p>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 1.5rem;">
+              <label>Export Output Directory</label>
+              <input type="text" id="input-export-dir" class="form-control" value="F:/Edits/actionCamMcp/exports">
+            </div>
+
+            <div class="form-group">
+              <label>File Prefix Name</label>
+              <input type="text" id="input-export-prefix" class="form-control" value="Action4_Edit_Final">
+            </div>
+
+            <div class="action-footer">
+              <button id="btn-queue-export" class="btn btn-secondary">Add to Resolve Render Queue</button>
+              <button id="btn-start-render" class="btn btn-primary">Start Export Now</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Export Status &amp; Render Queue</h3>
+            <div id="export-status-box" class="export-status-box">
+              <div class="empty-state">No render jobs currently queued.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Live Execution Console & MCP Stream -->
+    <section class="console-drawer">
+      <div class="drawer-header">
+        <span class="drawer-title">&#9002;_ ActionCam MCP Live Engine Console</span>
+        <button id="btn-clear-console" class="btn-text">Clear</button>
+      </div>
+      <div id="console-output" class="console-body">
+        <div class="log-entry log-info">[System] ActionCam MCP Studio Initialized. Ready for workflow execution.</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
+

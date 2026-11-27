@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Exports & rendered media (keep folder structure, ignore large binaries)
+exports/**/*.mp4
+exports/**/*.mov
+exports/**/*.mkv
+exports/*.mp4
+exports/*.mov
+exports/*.mkv
+
+# Generated test artifacts
+tests/sample_media/*.fcpxml
+tests/sample_media/exports/
+
+# Node / Electron plugin builds
+node_modules/
+workflow_plugin/**/node_modules/

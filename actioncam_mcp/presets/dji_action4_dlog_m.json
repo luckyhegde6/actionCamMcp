@@ -1,0 +1,25 @@
+{
+  "name": "DJI Action 4 D-Log M 10-Bit Cinematic",
+  "camera": "DJI Osmo Action 4",
+  "color_profile": "D-Log M",
+  "bit_depth": 10,
+  "lut_transform": "DJI_Action4_DLogM_to_Rec709.cube",
+  "timeline": {
+    "resolution": [1920, 1080],
+    "frame_rate": 25.0
+  },
+  "speed_ramping": {
+    "slowmo_fps_threshold": 59.0,
+    "target_retime_ratio": 0.208,
+    "optical_flow": true
+  },
+  "sound_design": {
+    "auto_impact_cues": true,
+    "whoosh_lead_frames": 6,
+    "bgm_ducking_db": -6.0
+  },
+  "export": {
+    "profile": "youtube_4k"
+  }
+}
+

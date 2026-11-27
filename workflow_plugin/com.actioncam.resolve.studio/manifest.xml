@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BlackmagicDesign>
+    <Plugin>
+        <Id>com.actioncam.resolve.studio</Id>
+        <Name>ActionCam MCP Studio Workflow</Name>
+        <Version>1.0.0</Version>
+        <Description>AI-Assisted Video Production &amp; MCP Workflow Plugin for DaVinci Resolve Studio</Description>
+        <FilePath>main.js</FilePath>
+    </Plugin>
+</BlackmagicDesign>
+
