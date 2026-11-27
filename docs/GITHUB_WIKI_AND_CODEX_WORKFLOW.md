@@ -42,6 +42,26 @@ See:
 - [ChatGPT Codex + GitHub skill](../skills/chatgpt-codex-github-workflow/SKILL.md)
 - [GitHub Wiki Git Publishing skill](../skills/github-wiki-git-publishing/SKILL.md)
 
+## Local Wiki publisher script
+
+The repository includes `scripts/publish_wiki.py` to repair stale image references and publish the Wiki from a local checkout. Run it from the source repository root after pulling the latest `main` branch.
+
+```powershell
+# 1. Preview the changes (clones/refreshes the Wiki in your OS temp directory)
+python scripts/publish_wiki.py
+
+# 2. Apply locally and validate every Markdown image target
+python scripts/publish_wiki.py --apply
+
+# 3. Commit and publish to the Wiki default branch
+python scripts/publish_wiki.py --apply --push
+```
+
+The script uses your normal Git credential manager session; it never asks for a token in command-line arguments. It copies only raster assets from `docs/assets/` into the Wiki's `images/` folder, replaces the deleted-branch raw URLs, replaces the missing storyboard SVG with the six existing JPEG shots, validates local image targets, and refuses to force-push. The Wiki checkout is retained under the operating system temporary directory at `actioncam-mcp-wiki`; use `--wiki-dir` to choose another location.
+
+Use `--apply` to edit and stage the Wiki working copy without publishing. Only add `--push` when the preview is correct and you intend to publish immediately. The script requires Git, network access to github.com, and Wiki write permission.
+
+
 ## Safe publishing checklist
 
 - Inspect the current repository and Wiki before editing.
