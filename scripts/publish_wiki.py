@@ -63,40 +63,7 @@ def run_git(args: list[str], cwd: Path | None = None, *, capture: bool = True) -
 
 
 def find_repo_root(start: Path) -> Path:
-    output = run_git(["rev-parse", "--show-toplevel"], start)
-    return Path(output).resolve()
-
-
-def ensure_wiki_checkout(wiki_dir: Path) -> str:
-    if (wiki_dir / ".git").exists():
-        remote = run_git(["remote", "get-url", "origin"], wiki_dir)
-        if remote.rstrip("/").lower() != WIKI_URL.rstrip("/").lower():
-            raise RuntimeError(
-                f"{wiki_dir} is already a Git repository with unexpected origin: {remote}"
-            )
-        run_git(["fetch", "origin", "--prune"], wiki_dir)
-        head = run_git(
-            ["symbolic-ref", "refs/remotes/origin/HEAD"], wiki_dir
-        ) if has_remote_head(wiki_dir) else ""
-        branch = head.rsplit("/", 1)[-1] if head else run_git(
-            ["branch", "--show-current"], wiki_dir
-        )
-        if not branch:
-            raise RuntimeError("Could not determine the Wiki default branch.")
-        run_git(["checkout", branch], wiki_dir)
-        run_git(["pull", "--ff-only", "origin", branch], wiki_dir)
-        return branch
-
-    if wiki_dir.exists() and any(wiki_dir.iterdir()):
-        raise RuntimeError(
-            f"Wiki working directory is not empty and is not a Git checkout: {wiki_dir}"
-        )
-    wiki_dir.parent.mkdir(parents=True, exist_ok=True)
-    run_git(["clone", WIKI_URL, str(wiki_dir)], capture=True)
-    branch = run_git(["branch", "--show-current"], wiki_dir)
-    if not branch:
-        raise RuntimeError("Wiki clone has no checked-out default branch.")
-    return branch
+    return Path(run_git(["rev-parse", "--show-toplevel"], start)).resolve()
 
 
 def has_remote_head(wiki_dir: Path) -> bool:
@@ -111,6 +78,40 @@ def has_remote_head(wiki_dir: Path) -> bool:
     return result.returncode == 0
 
 
+def ensure_wiki_checkout(wiki_dir: Path) -> str:
+    if (wiki_dir / ".git").exists():
+        remote = run_git(["remote", "get-url", "origin"], wiki_dir)
+        if remote.rstrip("/").lower() != WIKI_URL.rstrip("/").lower():
+            raise RuntimeError(
+                f"{wiki_dir} is already a Git repository with unexpected origin: {remote}"
+            )
+        run_git(["fetch", "origin", "--prune"], wiki_dir)
+        head = (
+            run_git(["symbolic-ref", "refs/remotes/origin/HEAD"], wiki_dir)
+            if has_remote_head(wiki_dir)
+            else ""
+        )
+        branch = head.rsplit("/", 1)[-1] if head else run_git(
+            ["branch", "--show-current"], wiki_dir
+        )
+        if not branch:
+            raise RuntimeError("Could not determine the Wiki default branch.")
+        run_git(["checkout", branch], wiki_dir)
+        run_git(["pull", "--ff-only", "origin", branch], wiki_dir)
+        return branch
+
+    if wiki_dir.exists() and any(wiki_dir.iterdir()):
+        raise RuntimeError(
+            f"Wiki working directory is not empty and is not a Git checkout: {wiki_dir}"
+        )
+    wiki_dir.parent.mkdir(parents=True, exist_ok=True)
+    run_git(["clone", WIKI_URL, str(wiki_dir)])
+    branch = run_git(["branch", "--show-current"], wiki_dir)
+    if not branch:
+        raise RuntimeError("Wiki clone has no checked-out default branch.")
+    return branch
+
+
 def image_gallery(asset_dir: Path) -> str:
     missing = [filename for filename, _ in SHOT_SEQUENCE if not (asset_dir / filename).is_file()]
     if missing:
@@ -123,11 +124,9 @@ def image_gallery(asset_dir: Path) -> str:
     for index in range(0, len(SHOT_SEQUENCE), 2):
         cells = []
         for filename, caption in SHOT_SEQUENCE[index:index + 2]:
-            cells.append(
-                f"![{caption}](images/{filename})\\n\\n*{caption}*"
-            )
+            cells.append(f"![{caption}](images/{filename})\n\n*{caption}*")
         rows.append("| " + " | ".join(cells) + " |")
-    return "\\n".join(rows)
+    return "\n".join(rows)
 
 
 def repair_page(text: str, asset_dir: Path) -> tuple[str, set[str], int]:
@@ -140,16 +139,15 @@ def repair_page(text: str, asset_dir: Path) -> tuple[str, set[str], int]:
         return image_gallery(asset_dir)
 
     storyboard_pattern = re.compile(
-        r"!\\[[^\\]]*\\]\\([^)]*first-video-shot-sequence\\.svg(?:\\s+[^)]*)?\\)",
+        r"!\[[^\]]*\]\([^)]*first-video-shot-sequence\.svg(?:\s+[^)]*)?\)",
         re.IGNORECASE,
     )
     text = storyboard_pattern.sub(replace_missing_storyboard, text)
 
-    # Replace old branch URLs and already-updated main raw URLs with portable
-    # Wiki-relative image paths, copying only assets that exist in docs/assets.
+    # Replace old branch URLs and main-branch raw URLs with portable Wiki paths.
     url_pattern = re.compile(
-        re.escape(OLD_ASSET_PREFIX) + r"([^\\s)\\\"'>]+)"
-        + "|" + re.escape(CURRENT_ASSET_PREFIX) + r"([^\\s)\\\"'>]+)"
+        re.escape(OLD_ASSET_PREFIX) + r'([^\s)"\'<>]+)'
+        + "|" + re.escape(CURRENT_ASSET_PREFIX) + r'([^\s)"\'<>]+)'
     )
 
     def replace_asset_url(match: re.Match[str]) -> str:
@@ -164,10 +162,10 @@ def repair_page(text: str, asset_dir: Path) -> tuple[str, set[str], int]:
 
     text = url_pattern.sub(replace_asset_url, text)
 
-    # Remove stale placeholder wording after the storyboard has been inserted.
+    # Remove stale placeholder wording once the raster storyboard is present.
     if "first-video-shot-sequence.svg" not in text:
         text = re.sub(
-            r"(?im)^.*(?:six-shot|shot-sequence|storyboard).*(?:pending upload|not yet uploaded|will be added later).*(?:\\n|$)",
+            r"(?im)^.*(?:six-shot|shot-sequence|storyboard).*(?:pending upload|not yet uploaded|will be added later).*(?:\n|$)",
             "",
             text,
         )
@@ -178,7 +176,7 @@ def validate_wiki(wiki_dir: Path) -> list[str]:
     errors: list[str] = []
     for page in sorted(wiki_dir.glob("*.md")):
         content = page.read_text(encoding="utf-8")
-        for match in re.finditer(r"!\\[[^\\]]*\\]\\(([^)]+)\\)", content):
+        for match in re.finditer(r"!\[[^\]]*\]\(([^)]+)\)", content):
             target = match.group(1).strip().split()[0].strip("<>")
             if re.match(r"^(?:https?:|data:)", target, re.IGNORECASE):
                 if target.lower().endswith(".svg"):
@@ -187,11 +185,9 @@ def validate_wiki(wiki_dir: Path) -> list[str]:
             if target.startswith("#"):
                 continue
             local_target = unquote(target.split("#", 1)[0])
-            if not local_target:
-                continue
-            if not (page.parent / local_target).is_file():
+            if local_target and not (page.parent / local_target).is_file():
                 errors.append(f"{page.name}: missing image target: {target}")
-            elif Path(local_target).suffix.lower() not in RASTER_EXTENSIONS:
+            elif local_target and Path(local_target).suffix.lower() not in RASTER_EXTENSIONS:
                 errors.append(f"{page.name}: unsupported image format: {target}")
     return errors
 
@@ -239,6 +235,7 @@ def main() -> int:
         changed_pages: list[str] = []
         all_assets: set[str] = set()
         total_replacements = 0
+        storyboard_added = False
 
         for page in sorted(wiki_dir.glob("*.md")):
             original = page.read_text(encoding="utf-8")
@@ -247,20 +244,17 @@ def main() -> int:
                 changed_pages.append(page.name)
                 total_replacements += count
                 all_assets.update(assets)
+                if "first-video-shot-sequence.svg" in original and "first-video-shot-sequence.svg" not in updated:
+                    storyboard_added = True
                 if args.apply:
-                    page.write_text(updated, encoding="utf-8", newline="\\n")
+                    page.write_text(updated, encoding="utf-8", newline="\n")
 
         if args.apply:
             image_dir = wiki_dir / "images"
             image_dir.mkdir(exist_ok=True)
             for filename in sorted(all_assets):
                 shutil.copy2(asset_dir / filename, image_dir / filename)
-            # Storyboard files are required only if the missing SVG was present.
-            has_storyboard = any(
-                "shot-01-establishing.jpg" in page.read_text(encoding="utf-8")
-                for page in wiki_dir.glob("*.md")
-            )
-            if has_storyboard:
+            if storyboard_added:
                 for filename, _ in SHOT_SEQUENCE:
                     shutil.copy2(asset_dir / filename, image_dir / filename)
 
@@ -268,15 +262,15 @@ def main() -> int:
         for name in changed_pages:
             print(f"  - {name}")
         print(f"Image URL / storyboard replacements: {total_replacements}")
-        print(f"Raster assets to copy: {len(all_assets)}")
+        print(f"Raster assets to copy: {len(all_assets) + (len(SHOT_SEQUENCE) if storyboard_added else 0)}")
 
         if not args.apply:
-            print("\\nDry run only. Re-run with --apply to modify the Wiki checkout.")
+            print("\nDry run only. Re-run with --apply to modify the Wiki checkout.")
             return 0
 
         errors = validate_wiki(wiki_dir)
         if errors:
-            print("\\nWiki image validation failed:", file=sys.stderr)
+            print("\nWiki image validation failed:", file=sys.stderr)
             for error in errors:
                 print(f"  - {error}", file=sys.stderr)
             return 2
@@ -286,7 +280,7 @@ def main() -> int:
             print("Wiki is already up to date; no commit needed.")
             return 0
 
-        print("\\nChanged files:")
+        print("\nChanged files:")
         print(status)
         run_git(["add", "-A"], wiki_dir)
         run_git(["diff", "--cached", "--check"], wiki_dir)
@@ -295,11 +289,11 @@ def main() -> int:
             run_git(["commit", "-m", args.message], wiki_dir)
             run_git(["push", "origin", branch], wiki_dir, capture=False)
             commit = run_git(["rev-parse", "HEAD"], wiki_dir)
-            print(f"\\nPublished Wiki commit: {commit}")
+            print(f"\nPublished Wiki commit: {commit}")
             print(f"Live Wiki: https://github.com/{OWNER}/{REPO}/wiki")
         else:
             print(
-                "\\nRepairs are staged locally but not committed or published. "
+                "\nRepairs are staged locally but not committed or published. "
                 "Re-run with --apply --push to publish."
             )
         return 0
@@ -307,7 +301,7 @@ def main() -> int:
     except (RuntimeError, OSError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         print(
-            "\\nCheck Git installation, network access, Git Credential Manager "
+            "\nCheck Git installation, network access, Git Credential Manager "
             "sign-in, and Wiki write permission.",
             file=sys.stderr,
         )
