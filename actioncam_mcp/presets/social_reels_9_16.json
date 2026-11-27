@@ -1,0 +1,20 @@
+{
+  "name": "Social Reels / TikTok (9:16 Vertical Fast Cut)",
+  "camera": "DJI Osmo Action 4",
+  "timeline": {
+    "resolution": [1080, 1920],
+    "frame_rate": 30.0
+  },
+  "pacing": {
+    "target_avg_shot_duration_sec": 1.1,
+    "fast_montage": true
+  },
+  "sound_design": {
+    "auto_impact_cues": true,
+    "whoosh_lead_frames": 4
+  },
+  "export": {
+    "profile": "reels_shorts_9_16"
+  }
+}
+

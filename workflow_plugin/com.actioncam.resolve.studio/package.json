@@ -1,0 +1,9 @@
+{
+  "name": "actioncam-mcp-workflow-plugin",
+  "version": "1.0.0",
+  "description": "ActionCam MCP Studio Workflow Integration Plugin for DaVinci Resolve Studio",
+  "main": "main.js",
+  "author": "ActionCam MCP",
+  "license": "GPL-3.0"
+}
+

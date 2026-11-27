@@ -1,0 +1,8 @@
+{
+  "hooks": {
+    "on_tool_step": "python .agents/hooks/sound_hook.py tool_step",
+    "on_task_done": "python .agents/hooks/sound_hook.py task_done",
+    "on_export_done": "python .agents/hooks/sound_hook.py export_done",
+    "on_error": "python .agents/hooks/sound_hook.py error"
+  }
+}

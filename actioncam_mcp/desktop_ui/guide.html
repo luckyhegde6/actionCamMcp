@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ActionCam Studio MCP — User Guide</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .guide-container { max-width: 1120px; margin: 1.5rem auto 3rem; padding: 0 1.5rem; }
+    .guide-hero { background: rgba(30, 34, 44, 0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.75rem; margin-bottom: 1.5rem; }
+    .guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem; }
+    .guide-card { background: rgba(24, 27, 36, 0.92); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 1.25rem; }
+    .guide-card h3 { margin-top: 0; color: #ff7b54; }
+    .guide-img { width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); margin-top: 0.75rem; }
+    .code-block { background: #0f1117; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 0.75rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; overflow-x: auto; color: #d8dee9; }
+    .step-badge { display: inline-block; background: #ff7b54; color: #111; font-weight: 700; border-radius: 999px; padding: 0.15rem 0.6rem; font-size: 0.78rem; margin-right: 0.4rem; }
+  </style>
+</head>
+<body class="bg-dark text-light">
+  <header class="app-header">
+    <div class="header-left">
+      <div class="app-logo">
+        <span class="logo-icon">&#9654;</span>
+        <span class="logo-title">ActionCam <strong>User Guide</strong></span>
+        <span class="badge-tag">DJI Action 4 &bull; DaVinci Resolve 21</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <a href="index.html" class="btn btn-primary btn-sm" style="text-decoration:none;">Back to Studio UI</a>
+    </div>
+  </header>
+
+  <main class="guide-container">
+    <section class="guide-hero">
+      <h1 style="margin-top:0;">ActionCam MCP Studio — Visual &amp; Workflow User Guide</h1>
+      <p class="text-muted">End-to-end guide for connecting <strong>DJI Osmo Action 4</strong> footage with <strong>DaVinci Resolve Studio 21</strong>, the Desktop UI, MCP tools, <code>ACTIONCAM_SOUNDS_DIR</code> audio mixing, and automatic <code>exports/YouTube/</code> classification.</p>
+      <div class="code-block">python run.py desktop &nbsp;&nbsp;# Launch Desktop UI<br>python run.py mcp &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Start JSON-RPC 2.0 MCP Server<br>python run.py status &nbsp;&nbsp;# Verify DaVinci Resolve Studio 21 connection</div>
+    </section>
+
+    <div class="guide-grid">
+      <article class="guide-card">
+        <h3><span class="step-badge">1</span> DaVinci Resolve Studio 21 Setup</h3>
+        <ol>
+          <li>Open <strong>Preferences &gt; System &gt; General</strong>.</li>
+          <li>Set <strong>External scripting using</strong> to <strong>Local</strong> and save.</li>
+          <li>Open your project (e.g. <code>test1</code>) with timelines like <code>Journey_Edit</code> or <code>Into_My_Cat</code>.</li>
+        </ol>
+        <img class="guide-img" src="/docs/assets/davinci-resolve-edit-page.jpg" alt="DaVinci Resolve Studio Edit Page">
+      </article>
+
+      <article class="guide-card">
+        <h3><span class="step-badge">2</span> DJI Action 4 D-Log M &amp; LUTs</h3>
+        <p class="text-muted">Use 10-bit D-Log M on the DJI Osmo Action 4. Resolve's API requires relative LUT paths:</p>
+        <div class="code-block">DJI/DJI OSMO Action 4 D-Log M to Rec.709 V1.cube</div>
+        <p class="text-muted" style="margin-top:0.6rem;">Pair with CDL color grading (<code>SetCDL</code>) for warm sunrise (<code>Journey_Edit</code>) or vibrant pet tones (<code>Into_My_Cat</code>).</p>
+        <img class="guide-img" src="/docs/assets/dji-action-4-pro-mode-screen.jpg" alt="DJI Action 4 Pro Mode">
+      </article>
+
+      <article class="guide-card">
+        <h3><span class="step-badge">3</span> Default Audio Mixin (<code>ACTIONCAM_SOUNDS_DIR</code>)</h3>
+        <p class="text-muted"><code>AudioEngine</code> scans <code>actioncam_mcp/assets/sounds</code> (or <code>ACTIONCAM_SOUNDS_DIR</code>) by default and routes ambience, whooshes, chimes, and BGM onto Fairlight tracks <code>A1</code>–<code>A3</code>.</p>
+        <ul>
+          <li><strong>Journey_Edit</strong>: Strips noisy camera audio and lays soothing ambience + reverb swells.</li>
+          <li><strong>Into_My_Cat (Pintu)</strong>: Adds intro chime, cut sweeps, and playful background bed.</li>
+        </ul>
+      </article>
+
+      <article class="guide-card">
+        <h3><span class="step-badge">4</span> Automatic Export Classification</h3>
+        <p class="text-muted"><code>ExportManager</code> classifies renders into platform folders automatically:</p>
+        <ul>
+          <li><code>exports/YouTube/</code> — <code>YouTube - 1080p</code> &amp; <code>youtube_4k</code></li>
+          <li><code>exports/Reels_Shorts/</code> — 9:16 vertical exports</li>
+          <li><code>exports/Master/</code> — DNxHR HQX archives</li>
+          <li><code>exports/Web_Preview/</code> — Lightweight review MP4s</li>
+        </ul>
+      </article>
+    </div>
+
+    <section class="guide-card">
+      <h3><span class="step-badge">5</span> MCP Server Tools (Claude Desktop / Antigravity / Cursor)</h3>
+      <div class="code-block">actioncam_check_status &bull; actioncam_scan_and_organize &bull; actioncam_decode_reference_video<br>actioncam_assemble_timeline &bull; actioncam_queue_export &bull; actioncam_run_full_workflow</div>
+      <p class="text-muted" style="margin-top:0.75rem;">For full CLI &amp; Python API details, see <code>docs/USER_GUIDE.md</code> and <code>skills/edits-1/SKILL.md</code>.</p>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Exports & rendered media (YouTube and all platform folders)
+exports/
+exports/YouTube/
+projects/
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.dng
+
+# Secrets, API keys, PII & local configs
+.env
+.env.*
+*.env
+*.log
+*.key
+*.pem
+*credentials*
+*secret*
+*token*
+claude_desktop_config.json
+mcp_config.json
+.agents/memory/
+
+# Generated test artifacts
+tests/sample_media/*.fcpxml
+tests/sample_media/exports/
+
+# Node / Electron plugin builds
+node_modules/
+workflow_plugin/**/node_modules/
