@@ -124,7 +124,7 @@ def image_gallery(asset_dir: Path) -> str:
     for index in range(0, len(SHOT_SEQUENCE), 2):
         cells = []
         for filename, caption in SHOT_SEQUENCE[index:index + 2]:
-            cells.append(f"![{caption}](images/{filename})\n\n*{caption}*")
+            cells.append(f"![{caption}](images/{filename})<br>*{caption}*")
         rows.append("| " + " | ".join(cells) + " |")
     return "\n".join(rows)
 
@@ -176,6 +176,8 @@ def validate_wiki(wiki_dir: Path) -> list[str]:
     errors: list[str] = []
     for page in sorted(wiki_dir.glob("*.md")):
         content = page.read_text(encoding="utf-8")
+        if OLD_ASSET_PREFIX in content:
+            errors.append(f"{page.name}: stale deleted-branch asset URL remains")
         for match in re.finditer(r"!\[[^\]]*\]\(([^)]+)\)", content):
             target = match.group(1).strip().split()[0].strip("<>")
             if re.match(r"^(?:https?:|data:)", target, re.IGNORECASE):
