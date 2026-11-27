@@ -19,6 +19,24 @@ The Wiki repository is not a normal subdirectory of the source repository. Do no
 
 GitHub Wiki pages can be publicly visible in the web UI while the Wiki Git remote remains unavailable through the standard GitHub REST repository endpoints. Do not infer that a published Wiki is uninitialized just because `GET /repos/OWNER/REPO.wiki` returns 404. Confirm the public Wiki page separately, then test the Git remote with `git ls-remote https://github.com/OWNER/REPO.wiki.git` or `git clone`. A successful public page fetch proves publication, not Git transport or connector write access.
 
+## Preferred workflow: use the repository publisher script
+
+From the local source-repository root, first pull the latest `main`, then use the maintained publisher:
+
+```powershell
+python scripts/publish_wiki.py
+python scripts/publish_wiki.py --apply
+python scripts/publish_wiki.py --apply --push
+```
+
+The first command is report-only. The second applies and validates the repair in the local Wiki checkout. The third commits and pushes to the Wiki default branch. The script clones or fast-forwards `https://github.com/luckyhegde6/actionCamMcp.wiki.git`, copies required raster files from `docs/assets/` into the Wiki `images/` folder, replaces stale deleted-branch image URLs, replaces the missing storyboard SVG with the six-shot JPEG gallery, validates image targets, and never force-pushes. It uses the user's existing Git credential manager session.
+
+Use `--wiki-dir PATH` to select a persistent checkout location. The default is the OS temporary directory's `actioncam-mcp-wiki` folder.
+
+If the script reports Git transport, authentication, or permission errors, stop and resolve those locally. Do not fall back to GitHub Contents API calls against the `.wiki` repository; the standard connector does not expose that Git remote.
+
+## Manual workflow (fallback): clone, edit, commit, push
+
 ## Preferred workflow: clone, edit, commit, push
 
 Run this in a local Codex workspace or a Codex Cloud environment that has Git, network access to github.com, and credentials with Wiki write permission.
