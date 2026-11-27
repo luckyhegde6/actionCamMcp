@@ -53,7 +53,7 @@ Record in **10-bit D-Log M** on the DJI Osmo Action 4. In **Camera & LUTs**, sel
 ## 5. Deliver & Automatic Export Classification (`exports/YouTube/`)
 
 `ExportManager` automatically classifies exports into platform subfolders under `exports/`:
-- `exports/YouTube/` — `YouTube - 1080p` & `youtube_4k`
+- `exports/YouTube/` — `YouTube - 1080p` & `youtube_4k` (with `.youtube.json` SEO sidecar & optional OAuth2 upload via `YouTubePublisher` / `YOUTUBE_OAUTH_TOKEN` and reference search inspired by `ia-programming/youtube-mcp`)
 - `exports/Reels_Shorts/` — `reels_shorts_9_16`
 - `exports/Master/` — `master_dnxhr`
 - `exports/Web_Preview/` — `web_1080p_fast`

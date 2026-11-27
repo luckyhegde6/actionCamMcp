@@ -24,6 +24,7 @@ from ..core import (
     ExportManager,
     generate_fcpxml,
 )
+from ..core.youtube_publisher import YouTubePublisher
 from ..config import CAMERA_PRESETS, EXPORT_PROFILES, RESOLVE_EXE_DEFAULT
 
 logger = logging.getLogger("actioncam_mcp.api")
@@ -218,6 +219,21 @@ class DesktopAPIHandler(SimpleHTTPRequestHandler):
                     render_info["status"] = "Rendering Started"
 
                 self._send_json(render_info)
+
+            elif parsed.path == "/api/youtube/prepare":
+                pub = YouTubePublisher()
+                meta = pub.generate_youtube_metadata(
+                    title=payload.get("title", "Illumen dev Showcase"),
+                    description=payload.get("description", ""),
+                    tags=payload.get("tags"),
+                    privacy_status=payload.get("privacy_status", "private"),
+                )
+                res = pub.upload_video_resumable(
+                    video_path=payload.get("video_path", ""),
+                    metadata=meta,
+                    execute_upload=bool(payload.get("execute_upload", False)),
+                )
+                self._send_json(res)
 
             else:
                 self._send_json({"error": f"Unknown endpoint: {parsed.path}"}, 404)

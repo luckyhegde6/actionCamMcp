@@ -23,6 +23,7 @@ from actioncam_mcp.core.resolve_client import ResolveClient
 from actioncam_mcp.core.export_manager import ExportManager
 from actioncam_mcp.core.audio_engine import AudioEngine
 from actioncam_mcp.core.sound_notifier import SoundNotifier
+from actioncam_mcp.core.youtube_publisher import YouTubePublisher
 from actioncam_mcp.server.mcp_server import ActionCamMCPServer
 from actioncam_mcp.server.http_api import DesktopAPIHandler
 
@@ -114,6 +115,23 @@ class TestMCPAndHTTPAPI(unittest.TestCase):
         self.assertIn("actioncam_queue_export", names)
         res = srv.handle_call_tool("actioncam_check_status", {})
         self.assertIn("connected", res)
+        self.assertIn("actioncam_youtube_prepare_upload", names)
+        self.assertIn("actioncam_youtube_search_references", names)
+
+    def test_youtube_publisher_metadata_and_sidecar(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fake_mp4 = Path(tmp) / "Illumen_Dev_Journey.mp4"
+            fake_mp4.write_bytes(b"\x00" * 128)
+            pub = YouTubePublisher(oauth_token=None)
+            meta = pub.generate_youtube_metadata(
+                title="Sunrise Journey | DJI Action 4",
+                description="Morning bus window & stream views",
+                tags=["DJI Action 4", "Travel", "Sunrise"],
+                chapters=[{"time": "00:00", "title": "Sunrise Hook"}, {"time": "00:12", "title": "Travel Montage"}],
+            )
+            res = pub.upload_video_resumable(str(fake_mp4), meta, execute_upload=False)
+            self.assertTrue(Path(res["metadata_sidecar"]).exists())
+            self.assertIn("Prepared", res["status"])
 
     def test_http_api_and_ui_pages(self):
         ui_dir = str(ROOT / "actioncam_mcp" / "desktop_ui")

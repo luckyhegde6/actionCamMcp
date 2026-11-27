@@ -20,6 +20,7 @@ from ..core import (
     generate_fcpxml,
 )
 from ..core.sound_notifier import SoundNotifier
+from ..core.youtube_publisher import YouTubePublisher
 from ..config import CAMERA_PRESETS, EXPORT_PROFILES
 from .session_manager import SessionManager
 
@@ -65,6 +66,34 @@ class ActionCamMCPServer:
                         "value": {"type": "string", "description": "Value to store"},
                     },
                     "required": ["key", "value"],
+                },
+            },
+            {
+                "name": "actioncam_youtube_prepare_upload",
+                "description": "Generates YouTube SEO metadata sidecar (.youtube.json) for a rendered MP4 in exports/YouTube/ and optionally uploads via YouTube Data API v3 resumable upload.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "video_path": {"type": "string", "description": "Path to rendered MP4 file"},
+                        "title": {"type": "string", "description": "YouTube video title"},
+                        "description": {"type": "string", "default": ""},
+                        "tags": {"type": "array", "items": {"type": "string"}},
+                        "privacy_status": {"type": "string", "enum": ["private", "unlisted", "public"], "default": "private"},
+                        "execute_upload": {"type": "boolean", "default": False},
+                    },
+                    "required": ["video_path", "title"],
+                },
+            },
+            {
+                "name": "actioncam_youtube_search_references",
+                "description": "Search YouTube for reference videos, titles, and inspiration (no API key required, inspired by ia-programming/youtube-mcp).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "query": {"type": "string", "description": "Search query"},
+                        "max_results": {"type": "integer", "default": 5},
+                    },
+                    "required": ["query"],
                 },
             },
             {
@@ -377,6 +406,29 @@ class ActionCamMCPServer:
 
             elif tool_name == "actioncam_memory_update":
                 return self.session_mgr.update_memory(arguments["key"], arguments["value"])
+
+            elif tool_name == "actioncam_youtube_prepare_upload":
+                pub = YouTubePublisher()
+                meta = pub.generate_youtube_metadata(
+                    title=arguments["title"],
+                    description=arguments.get("description", ""),
+                    tags=arguments.get("tags"),
+                    privacy_status=arguments.get("privacy_status", "private"),
+                )
+                return pub.upload_video_resumable(
+                    video_path=arguments["video_path"],
+                    metadata=meta,
+                    execute_upload=bool(arguments.get("execute_upload", False)),
+                )
+
+            elif tool_name == "actioncam_youtube_search_references":
+                return {
+                    "query": arguments["query"],
+                    "results": YouTubePublisher.search_reference_videos(
+                        query=arguments["query"],
+                        max_results=int(arguments.get("max_results", 5)),
+                    ),
+                }
 
             else:
                 raise ValueError(f"Unknown tool: {tool_name}")
