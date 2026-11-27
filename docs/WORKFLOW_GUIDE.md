@@ -121,9 +121,9 @@ AI agents in Claude Desktop, Antigravity, or Cursor can directly execute editing
 
 ### Example Agent Interactions:
 - *"Antigravity, check if DaVinci Resolve is open."* &rarr; calls `actioncam_check_status`.
-- *"Organize the SD card at D:/DCIM into F:/Edits/Project_TrailRun."* &rarr; calls `actioncam_scan_and_organize`.
+- *"Organize the SD card at D:/DCIM into ./projects/Project_TrailRun."* &rarr; calls `actioncam_scan_and_organize`.
 - *"Analyze reference_reel.mp4 and tell me its average shot duration."* &rarr; calls `actioncam_decode_reference_video`.
-- *"Assemble a 30-second edit using clips from F:/Edits/Raw matched to reference_sports.mp4, apply the D-Log M LUT, and export for Instagram Reels."* &rarr; calls `actioncam_assemble_timeline` and `actioncam_queue_export`.
+- *"Assemble a 30-second edit using clips from ./raw_footage matched to reference_sports.mp4, apply the D-Log M LUT, and export for Instagram Reels."* &rarr; calls `actioncam_assemble_timeline` and `actioncam_queue_export`.
 
 ---
 
