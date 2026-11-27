@@ -35,9 +35,7 @@ Use `--wiki-dir PATH` to select a persistent checkout location. The default is t
 
 If the script reports Git transport, authentication, or permission errors, stop and resolve those locally. Do not fall back to GitHub Contents API calls against the `.wiki` repository; the standard connector does not expose that Git remote.
 
-## Manual workflow (fallback): clone, edit, commit, push
-
-## Preferred workflow: clone, edit, commit, push
+## Manual workflow details
 
 Run this in a local Codex workspace or a Codex Cloud environment that has Git, network access to github.com, and credentials with Wiki write permission.
 
