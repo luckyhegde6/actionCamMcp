@@ -1,6 +1,6 @@
 # ActionCam MCP & DaVinci Resolve Studio 21 — Edits Flow Explainer
 
-This document explains how **ActionCam MCP Studio** orchestrates **DJI Osmo Action 4** footage, **`F:\Edits\Sounds`**, and **DaVinci Resolve Studio 21** via the Model Context Protocol (MCP), Python Scripting API (`fusionscript.dll`), and automated Deliver classification.
+This document explains how **ActionCam MCP Studio** orchestrates **DJI Osmo Action 4** footage, **``**, and **DaVinci Resolve Studio 21** via the Model Context Protocol (MCP), Python Scripting API (`fusionscript.dll`), and automated Deliver classification.
 
 ---
 
@@ -12,7 +12,7 @@ sequenceDiagram
     actor User as Creator / AI Client
     participant MCP as ActionCamMCPServer / CLI
     participant RC as ResolveClient (fusionscript.dll)
-    participant AE as AudioEngine (F:\Edits\Sounds)
+    participant AE as AudioEngine ()
     participant EM as ExportManager
     participant DVR as DaVinci Resolve Studio 21
 
@@ -48,7 +48,7 @@ sequenceDiagram
         MCP->>DVR: DeleteClips() on all audio tracks
     end
 
-    MCP->>AE: scan_sounds_library() from F:\Edits\Sounds
+    MCP->>AE: scan_sounds_library() from 
     AE-->>MCP: Categorized WAVs (ambience, whoosh, impact, chime, bgm)
     MCP->>RC: append_audio_clips(tl, audio_entries, bin="03 Audio & SFX")
     RC->>DVR: ImportMedia() & AppendToTimeline(mediaType=2, A1/A2/A3)
@@ -66,8 +66,8 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A["DJI Action 4 Footage<br/>(F:\Edits\Source\DJI_001)"] --> B["MediaOrganizer<br/>FPS & Bin Classification"]
-    S["Default Audio Source<br/>(F:\Edits\Sounds)"] --> E["AudioEngine<br/>ambience / whoosh / chime / bgm"]
+    A["DJI Action 4 Footage<br/>(<source-footage-dir>)"] --> B["MediaOrganizer<br/>FPS & Bin Classification"]
+    S["Default Audio Source<br/>()"] --> E["AudioEngine<br/>ambience / whoosh / chime / bgm"]
 
     B --> C["DaVinci Resolve Media Pool<br/>SlowMo 100fps & Realtime 24-50fps"]
     C --> D["Timeline Assembly<br/>Journey_Edit / Into_My_Cat"]
@@ -96,7 +96,7 @@ flowchart TD
 - **CDL Fine-Tuning**: `ResolveClient.apply_color_grade()` applies `item.SetCDL({"NodeIndex": "1", "Slope": ..., "Offset": ..., "Power": ..., "Saturation": ...})` to lift brightness or warm sunrise tones while preserving the original D-Log M look.
 - **Speed Warp**: Resolve 21.2 requires integer enums (`RetimeProcess=3` for Optical Flow, `MotionEstimation=4` for Speed Warp) rather than display strings.
 
-### Stage D — Audio Mixing (`F:\Edits\Sounds`) & Export Classification
-- `AudioEngine` defaults to `DEFAULT_SOUNDS_DIR` (`F:\Edits\Sounds`, configurable via `ACTIONCAM_SOUNDS_DIR`).
+### Stage D — Audio Mixing (``) & Export Classification
+- `AudioEngine` defaults to `DEFAULT_SOUNDS_DIR` (``, configurable via `ACTIONCAM_SOUNDS_DIR`).
 - For serene/sunrise edits (`Journey_Edit`), original camera audio is stripped before layering ambience (`A1`) and cut-transition whooshes (`A2`).
 - `ExportManager.classify_export_dir()` inspects the export profile/preset/filename and routes renders into `exports/YouTube/`, `exports/Reels_Shorts/`, `exports/Master/`, or `exports/Web_Preview/`.

@@ -1,13 +1,27 @@
 import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import fs from 'node:fs';
 
 const require = createRequire(import.meta.url);
-const playwrightPath = 'C:/Users/lucky/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright';
-const { chromium } = require(playwrightPath);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const appData = process.env.APPDATA || '';
+const playwrightCandidates = [
+  'playwright',
+  path.join(appData, 'npm', 'node_modules', '@playwright', 'cli', 'node_modules', 'playwright'),
+  path.join(appData, 'npm', 'node_modules', 'playwright'),
+];
+let chromium;
+for (const candidate of playwrightCandidates) {
+  try {
+    ({ chromium } = require(candidate));
+    if (chromium) break;
+  } catch {}
+}
+if (!chromium) throw new Error('Playwright module not found. Install playwright or @playwright/cli.');
 
-const ROOT = path.resolve('f:/Edits/actionCamMcp');
+const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'docs', 'assets');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 

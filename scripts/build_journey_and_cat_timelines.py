@@ -1,8 +1,8 @@
 """
-Builds, color-grades, mixes audio from F:\\Edits\\Sounds, and exports two timelines
+Builds, color-grades, mixes audio from , and exports two timelines
 in DaVinci Resolve Studio 21 (project 'test1'):
 1. Journey_Edit  (Sunrise & soothing visuals: original audio removed, warm sunrise grade + nature ambience)
-2. Into_My_Cat   (Pintu's showcase: 'MEET PINTU' intro, vibrant grade, playful SFX/bed from F:\\Edits\\Sounds)
+2. Into_My_Cat   (Pintu's showcase: 'MEET PINTU' intro, vibrant grade, playful SFX/bed from )
 """
 
 import argparse
@@ -121,7 +121,7 @@ def assemble_timeline(
         stripped = clear_audio_only(tl)
         print(f"Removed {stripped} original camera audio clips.")
 
-    # Mix in curated audio from F:\Edits\Sounds
+    # Mix in curated audio from 
     if audio_entries:
         added_audio = client.append_audio_clips(tl, audio_entries, bin_name="03 Audio & SFX")
         print(f"Added {added_audio} audio/SFX clips from default Sounds library.")

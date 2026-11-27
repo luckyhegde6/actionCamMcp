@@ -26,6 +26,7 @@ projects/
 *token*
 claude_desktop_config.json
 mcp_config.json
+.agents/memory/
 
 # Generated test artifacts
 tests/sample_media/*.fcpxml

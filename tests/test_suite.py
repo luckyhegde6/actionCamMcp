@@ -22,6 +22,7 @@ if str(ROOT) not in sys.path:
 from actioncam_mcp.core.resolve_client import ResolveClient
 from actioncam_mcp.core.export_manager import ExportManager
 from actioncam_mcp.core.audio_engine import AudioEngine
+from actioncam_mcp.core.sound_notifier import SoundNotifier
 from actioncam_mcp.server.mcp_server import ActionCamMCPServer
 from actioncam_mcp.server.http_api import DesktopAPIHandler
 
@@ -79,6 +80,32 @@ class TestActionCamCore(unittest.TestCase):
 
 
 class TestMCPAndHTTPAPI(unittest.TestCase):
+    def test_mcp_server_handshake_session_and_sounds(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            os.environ["ACTIONCAM_ENABLE_SOUNDS"] = "0"
+            srv = ActionCamMCPServer()
+            srv.session_mgr.memory_file = Path(tmp) / "mem.json"
+
+            init_resp = srv.process_request({
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "initialize",
+                "params": {"protocolVersion": "2024-11-05", "clientInfo": {"name": "test-llm", "version": "1.0"}},
+            })
+            self.assertIn("sessionId", init_resp["result"]["serverInfo"])
+            self.assertFalse(srv.session_mgr.initialized)
+
+            notif = srv.process_request({"jsonrpc": "2.0", "method": "notifications/initialized"})
+            self.assertIsNone(notif)
+            self.assertTrue(srv.session_mgr.initialized)
+
+            mem_res = srv.handle_call_tool("actioncam_memory_update", {"key": "active_timeline", "value": "Journey_Edit"})
+            self.assertEqual(mem_res["memory"]["active_timeline"], "Journey_Edit")
+
+            notifier = SoundNotifier(enabled=False)
+            for ev in ("export_done", "task_done", "error", "tool_step"):
+                self.assertIsNotNone(notifier.get_sound_path(ev), f"Missing sound asset for {ev}")
+
     def test_mcp_server_tools_and_status(self):
         srv = ActionCamMCPServer()
         names = [t["name"] for t in srv.tools]

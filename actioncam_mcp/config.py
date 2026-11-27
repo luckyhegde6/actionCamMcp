@@ -7,10 +7,11 @@ import os
 import sys
 from pathlib import Path
 
-# Base Paths
+# Base Paths (portable; override via environment variables)
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_STORAGE_ROOT = Path("F:/Edits/actionCamMcp/projects")
-DEFAULT_SOUNDS_DIR = Path(os.getenv("ACTIONCAM_SOUNDS_DIR", "F:/Edits/Sounds"))
+REPO_ROOT = PROJECT_ROOT.parent
+DEFAULT_STORAGE_ROOT = Path(os.getenv("ACTIONCAM_PROJECTS_DIR", str(REPO_ROOT / "projects")))
+DEFAULT_SOUNDS_DIR = Path(os.getenv("ACTIONCAM_SOUNDS_DIR", str(PROJECT_ROOT / "assets" / "sounds")))
 
 # DaVinci Resolve Scripting Paths (Windows)
 RESOLVE_SCRIPT_API_DEFAULT = r"C:\ProgramData\Blackmagic Design\DaVinci Resolve\Support\Developer\Scripting"

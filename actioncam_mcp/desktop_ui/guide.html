@@ -33,7 +33,7 @@
   <main class="guide-container">
     <section class="guide-hero">
       <h1 style="margin-top:0;">ActionCam MCP Studio — Visual &amp; Workflow User Guide</h1>
-      <p class="text-muted">End-to-end guide for connecting <strong>DJI Osmo Action 4</strong> footage with <strong>DaVinci Resolve Studio 21</strong>, the Desktop UI, MCP tools, <code>F:\Edits\Sounds</code> audio mixing, and automatic <code>exports/YouTube/</code> classification.</p>
+      <p class="text-muted">End-to-end guide for connecting <strong>DJI Osmo Action 4</strong> footage with <strong>DaVinci Resolve Studio 21</strong>, the Desktop UI, MCP tools, <code>ACTIONCAM_SOUNDS_DIR</code> audio mixing, and automatic <code>exports/YouTube/</code> classification.</p>
       <div class="code-block">python run.py desktop &nbsp;&nbsp;# Launch Desktop UI<br>python run.py mcp &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Start JSON-RPC 2.0 MCP Server<br>python run.py status &nbsp;&nbsp;# Verify DaVinci Resolve Studio 21 connection</div>
     </section>
 
@@ -57,8 +57,8 @@
       </article>
 
       <article class="guide-card">
-        <h3><span class="step-badge">3</span> Default Audio Mixin (<code>F:\Edits\Sounds</code>)</h3>
-        <p class="text-muted"><code>AudioEngine</code> scans <code>F:\Edits\Sounds</code> (or <code>ACTIONCAM_SOUNDS_DIR</code>) by default and routes ambience, whooshes, chimes, and BGM onto Fairlight tracks <code>A1</code>–<code>A3</code>.</p>
+        <h3><span class="step-badge">3</span> Default Audio Mixin (<code>ACTIONCAM_SOUNDS_DIR</code>)</h3>
+        <p class="text-muted"><code>AudioEngine</code> scans <code>actioncam_mcp/assets/sounds</code> (or <code>ACTIONCAM_SOUNDS_DIR</code>) by default and routes ambience, whooshes, chimes, and BGM onto Fairlight tracks <code>A1</code>–<code>A3</code>.</p>
         <ul>
           <li><strong>Journey_Edit</strong>: Strips noisy camera audio and lays soothing ambience + reverb swells.</li>
           <li><strong>Into_My_Cat (Pintu)</strong>: Adds intro chime, cut sweeps, and playful background bed.</li>

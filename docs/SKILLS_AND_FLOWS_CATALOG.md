@@ -262,8 +262,8 @@ AI assistants can directly execute any of the above workflows using the ActionCa
   "name": "actioncam_assemble_timeline",
   "arguments": {
     "timeline_name": "Viral_Sports_Reel_01",
-    "reference_path": "F:/Edits/References/viral_action_reel.mp4",
-    "source_dir": "F:/Edits/DJI_Action4_Raw",
+    "reference_path": "./reference_videos/viral_action_reel.mp4",
+    "source_dir": "./raw_footage/DJI_Action4_Raw",
     "camera_preset": "dji_action4_dlog_m",
     "export_fcpxml": true
   }
@@ -283,7 +283,7 @@ AI assistants can directly execute any of the above workflows using the ActionCa
 {
   "name": "actioncam_queue_export",
   "arguments": {
-    "output_dir": "F:/Edits/Exports",
+    "output_dir": "./exports",
     "filename_prefix": "Reel_Edit_Final",
     "profile": "reels_shorts_9_16",
     "start_render_now": false

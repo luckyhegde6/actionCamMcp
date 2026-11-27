@@ -19,7 +19,9 @@ from ..core import (
     ExportManager,
     generate_fcpxml,
 )
+from ..core.sound_notifier import SoundNotifier
 from ..config import CAMERA_PRESETS, EXPORT_PROFILES
+from .session_manager import SessionManager
 
 logging.basicConfig(level=logging.INFO, stream=sys.stderr, format="[ActionCam MCP] %(levelname)s: %(message)s")
 logger = logging.getLogger("actioncam_mcp.server")
@@ -31,6 +33,8 @@ class ActionCamMCPServer:
         self.resolve_client = ResolveClient()
         self.decoder = ReferenceDecoder(self.resolve_client)
         self.export_mgr = ExportManager(self.resolve_client)
+        self.session_mgr = SessionManager()
+        self.notifier = SoundNotifier()
         self.tools = self._register_tools()
 
     def _register_tools(self) -> List[Dict[str, Any]]:
@@ -41,6 +45,26 @@ class ActionCamMCPServer:
                 "inputSchema": {
                     "type": "object",
                     "properties": {},
+                },
+            },
+            {
+                "name": "actioncam_session_status",
+                "description": "Return current MCP session ID, handshake state, and persistent LLM memory.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {},
+                },
+            },
+            {
+                "name": "actioncam_memory_update",
+                "description": "Persist key/value context (active_project, active_timeline, or custom notes) into session memory.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "key": {"type": "string", "description": "Memory key to update"},
+                        "value": {"type": "string", "description": "Value to store"},
+                    },
+                    "required": ["key", "value"],
                 },
             },
             {
@@ -348,12 +372,70 @@ class ActionCamMCPServer:
                     "export_status": export_res,
                 }
 
+            elif tool_name == "actioncam_session_status":
+                return self.session_mgr.get_status()
+
+            elif tool_name == "actioncam_memory_update":
+                return self.session_mgr.update_memory(arguments["key"], arguments["value"])
+
             else:
                 raise ValueError(f"Unknown tool: {tool_name}")
 
         except Exception as e:
             logger.error(f"Error executing {tool_name}: {e}\n{traceback.format_exc()}")
+            self.session_mgr.record_tool_call(tool_name, status="error", summary=str(e))
+            self.notifier.notify("error")
             return {"error": str(e), "traceback": traceback.format_exc()}
+
+    def process_request(self, request: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """Processes a single JSON-RPC 2.0 request (testable without stdio)."""
+        req_id = request.get("id")
+        method = request.get("method")
+        params = request.get("params", {})
+
+        if method == "initialize":
+            hs = self.session_mgr.begin_handshake(params)
+            return {
+                "jsonrpc": "2.0",
+                "id": req_id,
+                "result": {
+                    "protocolVersion": hs["protocol_version"],
+                    "capabilities": {"tools": {"listChanged": False}},
+                    "serverInfo": {
+                        "name": "actioncam-mcp-server",
+                        "version": "1.1.0",
+                        "sessionId": hs["session_id"],
+                    },
+                },
+            }
+        if method == "notifications/initialized":
+            self.session_mgr.complete_handshake()
+            return None
+        if method == "tools/list":
+            return {"jsonrpc": "2.0", "id": req_id, "result": {"tools": self.tools}}
+        if method == "tools/call":
+            tool_name = params.get("name")
+            arguments = params.get("arguments", {})
+            self.notifier.notify("tool_step")
+            tool_res = self.handle_call_tool(tool_name, arguments)
+            if "error" not in tool_res:
+                self.session_mgr.record_tool_call(tool_name, status="ok")
+                if tool_name == "actioncam_queue_export":
+                    self.notifier.notify("export_done")
+                elif tool_name == "actioncam_run_full_workflow":
+                    self.notifier.notify("task_done")
+            return {
+                "jsonrpc": "2.0",
+                "id": req_id,
+                "result": {"content": [{"type": "text", "text": json.dumps(tool_res, indent=2)}]},
+            }
+        if method == "ping":
+            return {"jsonrpc": "2.0", "id": req_id, "result": {}}
+        return {
+            "jsonrpc": "2.0",
+            "id": req_id,
+            "error": {"code": -32601, "message": f"Method {method} not found"},
+        }
 
     def run_stdio(self):
         """Standard JSON-RPC 2.0 loop over stdin and stdout."""
@@ -362,61 +444,11 @@ class ActionCamMCPServer:
                 continue
             try:
                 request = json.loads(line)
-                req_id = request.get("id")
-                method = request.get("method")
-                params = request.get("params", {})
-
-                if method == "initialize":
-                    response = {
-                        "jsonrpc": "2.0",
-                        "id": req_id,
-                        "result": {
-                            "protocolVersion": "2024-11-05",
-                            "capabilities": {
-                                "tools": {"listChanged": False},
-                            },
-                            "serverInfo": {
-                                "name": "actioncam-mcp-server",
-                                "version": "1.0.0",
-                            },
-                        },
-                    }
-                elif method == "notifications/initialized":
+                response = self.process_request(request)
+                if response is None:
                     continue
-                elif method == "tools/list":
-                    response = {
-                        "jsonrpc": "2.0",
-                        "id": req_id,
-                        "result": {"tools": self.tools},
-                    }
-                elif method == "tools/call":
-                    tool_name = params.get("name")
-                    arguments = params.get("arguments", {})
-                    tool_res = self.handle_call_tool(tool_name, arguments)
-                    response = {
-                        "jsonrpc": "2.0",
-                        "id": req_id,
-                        "result": {
-                            "content": [
-                                {
-                                    "type": "text",
-                                    "text": json.dumps(tool_res, indent=2),
-                                }
-                            ]
-                        },
-                    }
-                elif method == "ping":
-                    response = {"jsonrpc": "2.0", "id": req_id, "result": {}}
-                else:
-                    response = {
-                        "jsonrpc": "2.0",
-                        "id": req_id,
-                        "error": {"code": -32601, "message": f"Method {method} not found"},
-                    }
-
                 sys.stdout.write(json.dumps(response) + "\n")
                 sys.stdout.flush()
-
             except Exception as e:
                 err_resp = {
                     "jsonrpc": "2.0",

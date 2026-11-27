@@ -40,9 +40,9 @@ Record in **10-bit D-Log M** on the DJI Osmo Action 4. In **Camera & LUTs**, sel
 
 ---
 
-## 4. Audio Mixin Source (`F:\Edits\Sounds`) & Sound FX
+## 4. Audio Mixin Source (``) & Sound FX
 
-`AudioEngine` defaults to `F:\Edits\Sounds` (override with `ACTIONCAM_SOUNDS_DIR`). It scans and categorizes `.wav`/`.mp3` files into ambience, whooshes, impacts, chimes, and BGM onto Fairlight tracks `A1`–`A3`:
+`AudioEngine` defaults to `` (override with `ACTIONCAM_SOUNDS_DIR`). It scans and categorizes `.wav`/`.mp3` files into ambience, whooshes, impacts, chimes, and BGM onto Fairlight tracks `A1`–`A3`:
 - **`Journey_Edit`**: Strips noisy camera audio (`clear_audio_only`) and mixes nature ambience + reverb swells.
 - **`Into_My_Cat` (Pintu)**: Adds intro chime, cut sweeps, and a playful background bed.
 

@@ -21,8 +21,8 @@ This skill documents the complete end-to-end **Iteration 1 (`edits-1`)** product
 | **Timeline Name** | `Illumen_Dev_Showcase` | Renamed from `Timeline 1` |
 | **Resolution** | `1920x1080` | Sized for NVIDIA GTX 1650 (4GB VRAM) |
 | **Frame Rate** | `100.0 fps` | Locked by Media Pool import of 100fps Action 4 footage |
-| **Source Directory** | `F:\Edits\Source\DJI_001\` | DJI Osmo Action 4 MP4 + DNG/JPG stills |
-| **Export Directory** | `F:\Edits\actionCamMcp\exports\` | Workspace-writable output folder |
+| **Source Directory** | `<source-footage-dir>/` | DJI Osmo Action 4 MP4 + DNG/JPG stills |
+| **Export Directory** | `./exports\` | Workspace-writable output folder |
 | **Script Entrypoint** | `scripts/build_illumen_dev_video.py` | Idempotent full-timeline rebuild & render script |
 
 ---
@@ -91,8 +91,8 @@ The baseline edit assembles 16 curated shots on Track `V1` (`25,554` frames vide
    - Apply per-clip CDL color grading via `item.SetCDL({"NodeIndex": "1", "Slope": ..., "Offset": ..., "Power": ..., "Saturation": ...})` (or `client.apply_color_grade(...)`).
    - Use `DJI/DJI OSMO Action 4 D-Log M to Rec.709 V1.cube` as the base technical LUT on D-Log M footage, then shape warmth/contrast with CDL instead of stacking creative Rec.709 LUTs.
    - DaVinci Resolve's live `Timeline` Scripting API has no `InsertTransition()` method; use Fusion `Text+` title cards (`client.insert_fusion_text_plus(...)`), `DynamicZoomEnabled`, or `fcpxml_generator.py` `<transition>` tags for cross-dissolves.
-8. **Default Audio Mixin Source (`F:\Edits\Sounds`) & Camera Audio Stripping**:
-   - `DEFAULT_SOUNDS_DIR` in `actioncam_mcp/config.py` defaults to `F:\Edits\Sounds` (override via `ACTIONCAM_SOUNDS_DIR`).
+8. **Default Audio Mixin Source (``) & Camera Audio Stripping**:
+   - `DEFAULT_SOUNDS_DIR` in `actioncam_mcp/config.py` defaults to `` (override via `ACTIONCAM_SOUNDS_DIR`).
    - For serene/sunrise visuals (`Journey_Edit`), strip noisy original camera audio (`clear_audio_only(tl)`) and mix ambience + transition swells via `client.append_audio_clips(...)`.
 9. **Automatic Export Classification (`exports/YouTube/`)**:
    - `ExportManager.classify_export_dir()` automatically routes YouTube renders (`youtube_1080p`, `youtube_4k`, `YouTube - 1080p`) into `exports/YouTube/`.
@@ -104,7 +104,7 @@ The baseline edit assembles 16 curated shots on Track `V1` (`25,554` frames vide
 - **Preset**: `YouTube - 1080p`
 - **Settings**:
   - `SelectAllFrames`: `True`
-  - `TargetDir`: `F:\Edits\actionCamMcp\exports`
+  - `TargetDir`: `./exports`
   - `CustomName`: `Illumen_Dev_DJI_Action4_Showcase`
 - **Execution**: `job_id = proj.AddRenderJob()` -> `proj.StartRendering([job_id])` -> poll `proj.GetRenderJobStatus(job_id)` until `JobStatus == "Complete"`.
 

@@ -23,7 +23,7 @@ class AudioEngine:
         self.sfx_library_dir = Path(sfx_library_dir) if sfx_library_dir else DEFAULT_SOUNDS_DIR
 
     def scan_sounds_library(self) -> Dict[str, List[str]]:
-        """Scans the default audio mixin source (e.g. F:\\Edits\\Sounds) and categorizes audio files."""
+        """Scans the default audio mixin source (e.g. ) and categorizes audio files."""
         categories: Dict[str, List[str]] = {
             "ambience": [],
             "whoosh": [],

@@ -81,7 +81,7 @@ python run.py status
 3. **Select Source & Organize**: Choose your DJI Osmo Action 4 source directory and target project folder to scan 100fps/120fps slow-mo vs 24–50fps realtime clips and create Media Pool bins.
 4. **Pick Camera Preset & LUT**: Select **DJI Action 4 D-Log M** and apply `DJI/DJI OSMO Action 4 D-Log M to Rec.709 V1.cube` (plus optional CDL grading).
 5. **Decode Reference & Assemble Cuts**: Optionally load a reference video to run Neural Engine `DetectSceneCuts()`, or run curated timeline scripts (`scripts/build_illumen_dev_video.py`, `scripts/build_journey_and_cat_timelines.py`).
-6. **Audio Mixin (`F:\Edits\Sounds`)**: The default audio mixin source is `F:\Edits\Sounds` (override with `ACTIONCAM_SOUNDS_DIR`). `AudioEngine.scan_sounds_library()` categorizes ambience, whooshes, impacts, chimes, and BGM for Fairlight tracks `A1`–`A3`.
+6. **Audio Mixin (``)**: The default audio mixin source is `` (override with `ACTIONCAM_SOUNDS_DIR`). `AudioEngine.scan_sounds_library()` categorizes ambience, whooshes, impacts, chimes, and BGM for Fairlight tracks `A1`–`A3`.
 7. **Classify & Export**: `ExportManager` automatically routes renders by platform into `exports/YouTube/`, `exports/Reels_Shorts/`, `exports/Master/`, or `exports/Web_Preview/`.
 
 ### 5. DaVinci Resolve Workflow Integration Plugin
@@ -103,7 +103,7 @@ To connect this workflow to Claude Desktop or Antigravity, add the following to 
   "mcpServers": {
     "actioncam-mcp": {
       "command": "python",
-      "args": ["F:/Edits/actionCamMcp/run.py", "mcp"],
+      "args": ["<path-to-actionCamMcp>/run.py", "mcp"],
       "env": {
         "RESOLVE_SCRIPT_API": "C:\\ProgramData\\Blackmagic Design\\DaVinci Resolve\\Support\\Developer\\Scripting",
         "RESOLVE_SCRIPT_LIB": "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\fusionscript.dll",

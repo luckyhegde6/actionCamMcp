@@ -5,7 +5,7 @@ Builds the Viral International-Style Journey Edit in DaVinci Resolve Studio 21 (
 - Remaining cuts: Fast-paced viral travel clippings from 0038_D (0:14+) and 0039_D (100fps Speed Warp).
 - Original noisy camera/bus audio completely removed.
 - Color Grade: DJI D-Log M to Rec.709 V1.cube + brightened warm CDL keeping the natural original look.
-- Audio Mix from F:\\Edits\\Sounds: Nature ambience + cinematic trailer swoosh/heartbeat + fast cut sweeps.
+- Audio Mix from : Nature ambience + cinematic trailer swoosh/heartbeat + fast cut sweeps.
 - Exported to exports/YouTube/Illumen_Dev_Journey_Viral.mp4
 """
 
@@ -115,7 +115,7 @@ def main():
     stripped = strip_all_audio(tl)
     print(f"Removed {stripped} original camera audio clips.")
 
-    # Mix curated SFX/ambience from F:\Edits\Sounds
+    # Mix curated SFX/ambience from 
     sounds_dir = AudioEngine().sfx_library_dir
     ambience = str(sounds_dir / "mixkit-crickets-and-insects-in-the-wild-ambience-39.wav")
     trailer_swoosh = str(sounds_dir / "mixkit-cinematic-transition-swoosh-heartbeat-trailer-488.wav")
