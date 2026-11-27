@@ -8,8 +8,10 @@ import sys
 import json
 import logging
 import subprocess
+import mimetypes
 import functools
 from pathlib import Path
+from typing import Any, Optional
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
 
@@ -81,6 +83,23 @@ class DesktopAPIHandler(SimpleHTTPRequestHandler):
                 "camera_presets": CAMERA_PRESETS,
                 "export_profiles": EXPORT_PROFILES,
             })
+
+        elif parsed.path.startswith("/docs/assets/"):
+            rel = parsed.path.lstrip("/")
+            docs_file = (Path(__file__).resolve().parent.parent.parent / rel).resolve()
+            assets_root = (Path(__file__).resolve().parent.parent.parent / "docs" / "assets").resolve()
+            if docs_file.is_file() and str(docs_file).startswith(str(assets_root)):
+                ctype, _ = mimetypes.guess_type(str(docs_file))
+                data = docs_file.read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", ctype or "application/octet-stream")
+                self.send_header("Content-Length", str(len(data)))
+                self.send_header("Connection", "close")
+                self.end_headers()
+                self.wfile.write(data)
+                self.close_connection = True
+            else:
+                self.send_error(404, "Asset not found")
 
         else:
             # Serve Desktop UI files
